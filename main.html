@@ -1,0 +1,40 @@
+﻿<?php ?> <!--include('templates/header.php'); -->
+
+  <!DOCTYPE html>
+
+<html>
+
+<header>
+<title> PROJECT LTW 2015/2016 </title>
+<meta charset = "utf-8">
+<link rel="stylesheet" href="./css/myStyle.css">
+</header>
+
+<body>
+
+    <header> Le EventBook </header>
+    <br>
+
+    <form id="logNreg" action="login.php." method="post">
+
+        <br>username:<br><input type="text" maxlength="30" name="log_username"></text>
+        <br>password:<br><input type="text" maxlength="30" name="log_password"></text>
+        <br>
+        <input class="form_button" type="submit" value="LOGIN">
+        <br><input class="form_button" type="submit" value="REGISTER">
+    </form>
+
+    <br>
+    <br>
+    <a href="path...events.html">Check all public events</a>
+
+    <footer>
+        <marquee behavior="scroll" direction="left">
+            Last Event: show last event here or something similar
+        </marquee>
+
+        <? print_r(getdate()); ?> 
+
+    </footer>
+
+    <? include('templates/footer.php'); ?>
