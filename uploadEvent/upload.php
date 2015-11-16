@@ -1,6 +1,6 @@
 <?php
  
- include('getSafeInput.php');
+ include('getInputSafe.php');
  
  //error msgs - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - -
  $image_type_error = "No valid image was selected. File must be of type gif, jpeg, png or bmp.";
