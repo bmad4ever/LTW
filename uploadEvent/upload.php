@@ -52,7 +52,7 @@
   
   //input seems valid
   //create new data - - - - - - - - - - - - - - - - - - - - - - - - -
-  $clean_title = cleanUserTextTags($_POST['title'])
+  $clean_title = cleanUserTextTags($_POST['title']);
   
   $stmt = $dbh->prepare("INSERT INTO images VALUES(NULL, ?,?)");
   $stmt->execute(array(clean_title,$file_extension));
