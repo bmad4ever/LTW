@@ -1,27 +1,27 @@
 CREATE TABLE users(
-id INTEGER PRIMARY KEY AUTO INCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 username VARCHAR,
 password VARCHAR
 );
 
 CREATE table eventTypes (
-id INTEGER PRIMARY KEY AUTO INCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 name VARCHAR
 );
 
 CREATE TABLE events (
-id INTEGER PRIMARY KEY AUTO INCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 owner INTEGER,/*user id*/
 eventtype INTEGER,
-creation_date DATE, /*date event was created*/
-event_date DATE, /*date of the event*/
+creation_date DATETIME, /*date event was created*/
+event_date DATETIME, /*date of the event*/
 title VARCHAR,
 description VARCHAR,
 event_type VARCHAR,
 image VARCHAR,/*nome imagem*/
-publico BOOLEAN, /*privado ou publico*/,
-FOREIGN KEY owner REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY eventtype REFERENCES eventTypes(id)
+publico BOOLEAN, /*privado ou publico*/
+FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY (eventtype) REFERENCES eventTypes(id)
 );
 
 CREATE TABLE registers(
@@ -33,17 +33,17 @@ FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
 CREATE TABLE comments(
-id INTEGER PRIMARY KEY AUTO INCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 user_id INTEGER,
 event_id INTEGER,
-date_comment DATE,/*data do comment*/
+date_comment DATETIME,/*data do comment*/
 comment_text VARCHAR,
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
 FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
 CREATE TABLE images (
-id INTEGER PRIMARY KEY AUTO INCREMENT,
+id INTEGER PRIMARY KEY AUTOINCREMENT,
 photo_url VARCHAR,
 extension VARCHAR,
 user_id INTEGER,
@@ -52,5 +52,5 @@ FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-ALTER TABLE tableType
-ADD ('Concerto','Festa','Casamento','Batismo','Almoço/Jantar','Palestra','Workshop','Reunião');
+INSERT INTO eventTypes(name)
+VALUES ('Concerto'),('Festa'),('Casamento'),('Batismo'),('Almoço/Jantar'),('Palestra'),('Workshop'),('Reunião');
