@@ -48,14 +48,14 @@
   $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if(!validateInput($_POST['title'],$title_match)) { header("Location: index.php?errorMsg=".urlencode($invalid_title_error)); return '';}
+    if(validateInput($title_match,$_POST['title'])) { header("Location: index.php?errorMsg=".urlencode($invalid_title_error)); return '';}
   
   //input seems valid
   //create new data - - - - - - - - - - - - - - - - - - - - - - - - -
   $clean_title = cleanUserTextTags($_POST['title']);
   
   $stmt = $dbh->prepare("INSERT INTO images VALUES(NULL, ?,?)");
-  $stmt->execute(array(clean_title,$file_extension));
+  $stmt->execute(array($clean_title,$file_extension));
 
   $id = $dbh->lastInsertId();
 

@@ -17,7 +17,7 @@
 
 function validateInput($var, $input)
 {
-       if(preg_match("/^$var$/u", $input)) 
+       if(preg_match("/^$var$/u", $input)==1) 
                return true; 
        return false;
 }
