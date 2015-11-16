@@ -48,7 +48,8 @@
   $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    if(validateInput($title_match,$_POST['title'])) { header("Location: index.php?errorMsg=".urlencode($invalid_title_error)); return '';}
+   // if(validateInput($title_match,$_POST['title'])) 
+	if(validateInput($title_match, $_POST['title'])===false) { header("Location: index.php?errorMsg=".urlencode($invalid_title_error)); return '';}
   
   //input seems valid
   //create new data - - - - - - - - - - - - - - - - - - - - - - - - -
