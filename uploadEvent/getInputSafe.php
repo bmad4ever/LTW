@@ -8,18 +8,19 @@
     $path_match= "(\/([a-z0-9+\$_-]\.?)+)*\/?"; // Path 
     $getquery_match= "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?"; // GET Query 
     $anchor_match= "(#[a-z_.-][a-z0-9+\$_.-]*)?"; // Anchor 
+	$title_match="([\w \<\>\/]])+";//title
 ?> 
 
 <?php 
 
-function getNameOrPass(input)
+function validateInput($var, $input)
 {
-       if(preg_match("/^$regex$/", input)) 
+       if(preg_match("/^$var$/u", $input)) 
                return true; 
        return false;
 }
 
-function cleanUserTextTags(text)
+function cleanUserTextTags($text)
 {
 	 return strip_tags($row['introduction'],$allowedtags);
 }

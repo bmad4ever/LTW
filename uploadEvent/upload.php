@@ -1,7 +1,14 @@
 <?php
  
- $image_type_error = "No valid image was selected. File must be of type gif, jpeg, png or bmp.";
+ include('getSafeInput.php');
  
+ //error msgs - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - -
+ $image_type_error = "No valid image was selected. File must be of type gif, jpeg, png or bmp.";
+ $chars_error =  "Please do not use symbols or special characters.";
+ $invalid_title_error = "Invalid Title.";
+ $invalid_title_error.= $chars_error;
+ 
+ //verify if input is valid - - - - - - - - -  - - - - - - - - - - - - - - -
    // list($width, $height, $image_type) = getimagesize($_FILES['image']);
 	$image_type = exif_imagetype ($_FILES['image']['tmp_name']);
 	
@@ -41,8 +48,14 @@
   $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    if(!validateInput($_POST['title'],$title_match)) { header("Location: index.php?errorMsg=".urlencode($invalid_title_error)); return '';}
+  
+  //input seems valid
+  //create new data - - - - - - - - - - - - - - - - - - - - - - - - -
+  $clean_title = cleanUserTextTags($_POST['title'])
+  
   $stmt = $dbh->prepare("INSERT INTO images VALUES(NULL, ?,?)");
-  $stmt->execute(array($_POST['title'],$file_extension));
+  $stmt->execute(array(clean_title,$file_extension));
 
   $id = $dbh->lastInsertId();
 
