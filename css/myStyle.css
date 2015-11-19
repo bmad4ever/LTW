@@ -9,8 +9,11 @@ body{
      
 }
 
+header span{
+display: inline-block;
+}
 
-header{
+header h1{
   text-shadow: 0 1px 0 #ccc, /* shadow from http://markdotto.com/playground/3d-text/*/
                0 2px 0 #c9c9c9,
                0 3px 0 #bbb,

@@ -1,15 +1,14 @@
 <?php 
 include('header.php');
 
-function display_login_form(){
+function display_register_form(){
 	
 	echo
     '<form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
 
-        <br>username:<br><input type="text" maxlength="30" name="log_username"></text>
-        <br>password:<br><input type="password" maxlength="30" name="log_password"></text>
-        <br>
-        <input class="form_button" type="submit" name="choice" value="LOGIN">
+        <br>username<br><input type="text" name="log_username"></text>
+        <br>password<br><input type="password" name="log_password"></text>
+		<br>confirm password<br><input type="password" name="log_password_conf"></text>
         <br><input class="form_button" type="submit" name="choice" value="REGISTER">
     </form>';
 	if(isset($_GET['errorMsg'])) 
@@ -20,13 +19,6 @@ function display_login_form(){
 	}
 }
 
-function display_logout_form(){
- echo
- '<FORM METHOD="LINK" ACTION="log_out.php">
-<BR><INPUT class="form_button" TYPE="submit" VALUE="LOGOUT">
-</FORM>';
-}
-	
 function main_display()
 {
 	$status = session_status();
@@ -35,8 +27,8 @@ function main_display()
 	{
 		case PHP_SESSION_DISABLED:display_login_form(); break;
 		case PHP_SESSION_ACTIVE:
-			if(checkLogged()) display_logout_form();
-			else {session_destroy(); display_login_form();}
+			if(checkLogged()) ;
+			else {session_destroy(); display_register_form();}
 			break;
 		case PHP_SESSION_NONE:display_login_form();  break;
 			default; break;
@@ -57,7 +49,11 @@ function main_display()
 
 <body>
 
-    <header> Le EventBook </header>
+    <header> 
+	<? login_header(); ?>
+	<h1>Le EventBook</h1> 
+	</header>
+	
     <br>
 		<? main_display(); ?>
     <br>

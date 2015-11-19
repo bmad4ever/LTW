@@ -29,6 +29,12 @@ if( !isset($_POST['log_username'])
 
  if($_POST['choice']=="REGISTER")
 {
+	if($_POST['log_password_conf']!=$_POST['log_password'])
+	{
+		header("location: main.php?errorMsg=".urlencode("\"password\" field is different than \"confirm password\""));
+		return '';
+	}
+	
 	if(number_of_usersnamed() === 0 )
 	{
 		$dbh = new PDO('sqlite:database.db');
