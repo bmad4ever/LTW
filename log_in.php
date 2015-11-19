@@ -1,6 +1,11 @@
 ﻿<?php
+
+sleep(1);//avoid login spamming
+$result;//users with given username (and password, depending on the method called)
+
 function number_of_usersnamed()
 {
+	global $result;
 	$db = new PDO('sqlite:database.db');
 	$stmt = $db->prepare('SELECT id FROM users WHERE username = ?');
 	$stmt->execute(array($_POST['log_username'])); 
@@ -9,6 +14,7 @@ function number_of_usersnamed()
 }
 function number_of_usersnamed_with_pass()
 {
+	global $result;
 	$db = new PDO('sqlite:database.db');
 	$stmt = $db->prepare('SELECT id FROM users WHERE username = ? and password = ?');
 	$stmt->execute(array($_POST['log_username'], md5($_POST['log_password']))); 
@@ -44,7 +50,6 @@ if( !isset($_POST['log_username'])
 		$stmt = $dbh->prepare("INSERT INTO users VALUES(NULL, ?,?)");
 		$stmt->execute(array($_POST['log_username'], md5($_POST['log_password'])));
 		
-		$id = $dbh->lastInsertId();
 		header("location: main.php?regok=");
 	}
 	else header("location: main.php?errorMsg=".urlencode("Username already in use"));
@@ -62,8 +67,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If result matched $myusername and $mypassword, table row must be 1 row
     if (number_of_usersnamed_with_pass() == 1) {
         //session_register("myusername");
-        $_SESSION['login_user'] = $_POST['log_username'];
-        header("location: xpto.php?logok=");
+		$aux = $result[0]['id'];
+        $_SESSION['login_user'] = $aux;// $_POST['log_username'];
+		$_SESSION['login_username'] = $_POST['log_username'];
+		//print for debug purposes, can be removed later
+        header("location: main.php?logok=$aux");
     } else {
         header("location: main.php?errorMsg=".urlencode("Your username or password is Invalid"));
 		//???session_destroy();???

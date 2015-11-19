@@ -1,14 +1,26 @@
 <?php
  
+ sleep(1);//avoid login spamming
+ include('header.php');
  include('getInputSafe.php');
  
- //error msgs - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - -
+ if($_POST['description']!="DoUpload" || !checkLogged() || !validate_user())
+	{
+		destroy_session();
+        header("Location: index.php?errorMsg=".urlencode("Illegal Upload Event try!"));
+		return '';
+	}
+ 
+ 
+ //error msgs - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - - - - -   - - - - - - - -
  $image_type_error = "No valid image was selected. File must be of type gif, jpeg, png or bmp.";
  $chars_error =  "Please do not use symbols or special characters.";
  $invalid_title_error = "Invalid Title.";
  $invalid_title_error.= $chars_error;
+$invalid_description_error="Invalid description.";
+$invalid_description_error.= $chars_error;
  
- //verify if input is valid - - - - - - - - -  - - - - - - - - - - - - - - -
+ //verify if input is valid - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
    // list($width, $height, $image_type) = getimagesize($_FILES['image']);
 	$image_type = exif_imagetype ($_FILES['image']['tmp_name']);
 	
@@ -43,28 +55,37 @@
 
         default:  header("Location: index.php?errorMsg=".urlencode($image_type_error)); return '';  break;
     }
-	
-  $dbh = new PDO('sqlite:upload.db');
-  $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
    // if(validateInput($title_match,$_POST['title'])) 
 	if(validateInput($title_match, $_POST['title'])===false) { header("Location: index.php?errorMsg=".urlencode($invalid_title_error)); return '';}
-  
+	if(validateInput($userNpassNtext_match,$_POST['description'])==false) { header("Location: index.php?errorMsg=".urlencode($invalid_description_error)); return '';}
+	
   //input seems valid
-  //create new data - - - - - - - - - - - - - - - - - - - - - - - - -
+  //create new data - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -- - - - - -  -
   $clean_title = cleanUserTextTags($_POST['title']);
+  $clean_description = cleanUserTextTags($_POST['description']);
   
+  $dbh = new PDO('sqlite:upload.db');
+  $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  
+  //insert new image
   $stmt = $dbh->prepare("INSERT INTO images VALUES(NULL, ?,?)");
   $stmt->execute(array($clean_title,$file_extension));
 
-  $id = $dbh->lastInsertId();
+  //get new image id (is it ok?)
+  $image_id = $dbh->lastInsertId();
 
-
-	
-  $originalFileName = "images/originals/$id.$file_extension";
-  $smallFileName = "images/thumbs_small/$id.$file_extension";
-  $mediumFileName = "images/thumbs_medium/$id.$file_extension";
+  //insert new event
+  $stmt = $dbh->prepare("INSERT INTO users VALUES(NULL, ?,?)");
+  $stmt->execute(array(_SESSION['log_user'], _POST['types'],_POST['create_date'],
+  ,_POST['event_date'],$clean_title,$clean_description,
+  $image_id,_POST["public"]));
+  
+  //save image file and thumbnails
+  $originalFileName = "images/originals/$image_id.$file_extension";
+  $smallFileName = "images/thumbs_small/$image_id.$file_extension";
+  $mediumFileName = "images/thumbs_medium/$image_id.$file_extension";
 
   move_uploaded_file($_FILES['image']['tmp_name'], $originalFileName);
   
@@ -122,6 +143,7 @@
 
 
 <?php
+//FUNC 2 ENABLE BMP UPLOADS
 //from http://forums.codewalkers.com/php-coding-7/how-to-convert-bmp-to-jpg-879135.html
 function ConvertBMP2GD($src, $dest = false) {
 if(!($src_f = fopen($src, "rb"))) {

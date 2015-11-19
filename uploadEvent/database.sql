@@ -17,11 +17,12 @@ creation_date DATETIME, /*date event was created*/
 event_date DATETIME, /*date of the event*/
 title VARCHAR,
 description VARCHAR,
-event_type VARCHAR,
-image VARCHAR,/*nome imagem*/
+/*event_type VARCHAR,*/
+image INTEGER,/*nome imagem*/
 publico BOOLEAN, /*privado ou publico*/
 FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY (eventtype) REFERENCES eventTypes(id)
+FOREIGN KEY (eventtype) REFERENCES eventTypes(id),
+FOREIGN KEY (image) REFERENCES images(id)
 );
 
 CREATE TABLE registers(

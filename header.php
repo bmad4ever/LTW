@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+  $dbh = new PDO('sqlite:database.db');
+  $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $stmt = $dbh->prepare("SELECT * from eventTypes");
+  $stmt->execute();
+  $event_type_names = $stmt->fetchAll();
+
 function checkLogged()
 {
 	 if (isset($_SESSION['login_user'])
@@ -29,6 +36,26 @@ function login_header()
 			<input class="form_button" type="submit" name="choice" value="LOGIN">
     </form>
 	';
+		if(isset($_GET['errorMsg'])) 
+	{	
+		echo '<span>';
+		echo $_GET['errorMsg'];
+		echo '</span>';
+	}
+}
+
+function validate_user(){
+  	
+	$db = new PDO('sqlite:database.db');
+	$stmt = $db->prepare('SELECT username FROM users WHERE id = ?');
+	$stmt->execute(array($_SESSION['login_user'])); 
+    $result=$stmt->fetchAll();
+	
+	if (count($result)!=1 || 
+	$result[0]['username'] != $_SESSION['login_username']
+	) return false;
+	
+	return true;
 }
 
 ?>

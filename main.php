@@ -11,12 +11,7 @@ function display_register_form(){
 		<br>confirm password<br><input type="password" name="log_password_conf"></text>
         <br><input class="form_button" type="submit" name="choice" value="REGISTER">
     </form>';
-	if(isset($_GET['errorMsg'])) 
-	{	
-		echo '<span>';
-		echo $_GET['errorMsg'];
-		echo '</span>';
-	}
+
 }
 
 function main_display()

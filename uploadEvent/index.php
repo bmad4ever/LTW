@@ -1,13 +1,5 @@
 <?php
-
-  $dbh = new PDO('sqlite:database.db');
-  $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  
-  $stmt = $dbh->prepare("SELECT name from eventTypes");
-  $stmt->execute();
-  
-  $images = $stmt->fetchAll();
+include("header.php");
   
 ?>
 <!DOCTYPE HTML>
@@ -22,7 +14,8 @@
 	<? if(isset($_GET['errorMsg'])) echo $_GET['errorMsg'] ?>
       <h1><a href="index.php">Insert event</a></h1>
     </header>
-    <nav>
+	
+    <div id="create_event_form">
       
 	  <form action="upload.php" method="post" enctype="multipart/form-data">
         <label>Title:
@@ -30,22 +23,26 @@
         </label>
 		<label>Type:
 			<select name="types">
-				<?foreach( $result as $row){?>
-					<option value="<?=$row['name']?>"><?=$row['name']?></option>
+				<?foreach( $event_type_names as $row){?>
+					<option value="<?=$row['id']?>"><?=$row['name']?></option>
 				<?}?>
 			</select>
         </label>
-		<label>Description:
-          <textarea name="description">
-        </label>
+
 		<label>Date:
           <input type="datetime" name="event_date">
         </label>
 		
         <input type="file" name="image">
-        <input type="submit" value="Upload">
+		
+		<label>Description:<br>
+          <textarea name="description"></textarea>
+        </label>
+		
+		<br> <input type="submit" name="Upload" value="DoUpload">
       </form>
 	  
-    </nav>
+    </div>
+	
   </body>
 </html>

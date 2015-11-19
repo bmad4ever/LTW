@@ -4,29 +4,54 @@ username VARCHAR,
 password VARCHAR
 );
 
-INSERT INTO news VALUES (NULL,'dood','1234');
-
-CREATE TABLE event(
+CREATE table eventTypes (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-creator INTEGER,/*user id*/
-/*data de criacao?*/
+name VARCHAR
+);
+
+CREATE TABLE events (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+owner INTEGER,/*user id*/
+eventtype INTEGER,
+creation_date DATETIME, /*date event was created*/
+event_date DATETIME, /*date of the event*/
+title VARCHAR,
 description VARCHAR,
-event_type VARCHAR,
-image VARCHAR,/*nome imagem*/
-image_small VARCHAR,
-/*tipo privado/publico*/
+/*event_type VARCHAR,*/
+image INTEGER,/*nome imagem*/
+publico BOOLEAN, /*privado ou publico*/
+FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY (eventtype) REFERENCES eventTypes(id),
+FOREIGN KEY (image) REFERENCES images(id)
 );
 
 CREATE TABLE registers(
-id INTEGER PRIMARY KEY AUTOINCREMENT,
 user_id INTEGER,
-event_id INTEGER
+event_id INTEGER,
+PRIMARY KEY (user_id,event_id),
+FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
 CREATE TABLE comments(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 user_id INTEGER,
 event_id INTEGER,
-/*data do comment*/
-comment_text VARCHAR
-)
+date_comment DATETIME,/*data do comment*/
+comment_text VARCHAR,
+FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+);
+
+CREATE TABLE images (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+photo_url VARCHAR,
+extension VARCHAR,
+user_id INTEGER,
+event_id INTEGER,
+FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
+FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+INSERT INTO eventTypes(name)
+VALUES ('Concerto'),('Festa'),('Casamento'),('Batismo'),('Almoço/Jantar'),('Palestra'),('Workshop'),('Reunião');
