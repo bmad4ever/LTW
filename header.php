@@ -58,4 +58,11 @@ function validate_user(){
 	return true;
 }
 
+function validate_date($date)
+{
+	 if($date == date("Y-m-d",null))
+		return false;
+	return true;
+}
+
 ?>

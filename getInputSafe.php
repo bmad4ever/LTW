@@ -1,8 +1,8 @@
+<?php 
 //adaptado de http://php.net/manual/en/function.preg-match.php 
 
-<?php 
     $scheme_match = "((https?|ftp)\:\/\/)?"; // SCHEME 
-    $userNpass_match= "([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?"; // User and Pass 
+    $userNpass_match= "([\w+!* (),;?&=\$\_\.\-\/\<\>]+)"; // User and Pass 
     $hostNip_match= "([a-z0-9-.]*)\.([a-z]{2,3})"; // Host or IP 
     $port_match= "(\:[0-9]{2,5})?"; // Port 
     $path_match= "(\/([a-z0-9+\$_-]\.?)+)*\/?"; // Path 
@@ -22,6 +22,7 @@ function validateInput($var, $input)
 
 function cleanUserTextTags($text)
 {
+	global $allowedtags;
 	 return strip_tags($text,$allowedtags);
 }
 

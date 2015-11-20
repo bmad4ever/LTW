@@ -30,7 +30,7 @@ include("header.php");
         </label>
 
 		<label>Date:
-          <input type="datetime" name="event_date">
+          <input type="date" name="event_date">
         </label>
 		
         <input type="file" name="image">

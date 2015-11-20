@@ -1,55 +1,52 @@
-CREATE TABLE users(
+CREATE table users(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 username VARCHAR,
 password VARCHAR
 );
 
-CREATE table eventTypes (
+CREATE table eventTypes(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 name VARCHAR
 );
 
-CREATE TABLE events (
+CREATE table events(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 owner INTEGER,/*user id*/
 eventtype INTEGER,
 creation_date DATETIME, /*date event was created*/
-event_date DATETIME, /*date of the event*/
+event_date DATE, /*date of the event*/
 title VARCHAR,
 description VARCHAR,
-/*event_type VARCHAR,*/
-image INTEGER,/*nome imagem*/
 publico BOOLEAN, /*privado ou publico*/
 FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY (eventtype) REFERENCES eventTypes(id),
-FOREIGN KEY (image) REFERENCES images(id)
+FOREIGN KEY (eventtype) REFERENCES eventTypes(id)
 );
 
-CREATE TABLE registers(
+CREATE table registers(
 user_id INTEGER,
 event_id INTEGER,
 PRIMARY KEY (user_id,event_id),
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+FOREIGN KEY (event_id) REFERENCES evvents(id) ON DELETE CASCADE
 );
 
-CREATE TABLE comments(
+CREATE table comments(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 user_id INTEGER,
 event_id INTEGER,
 date_comment DATETIME,/*data do comment*/
 comment_text VARCHAR,
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+FOREIGN KEY (event_id) REFERENCES evvents(id) ON DELETE CASCADE
 );
 
-CREATE TABLE images (
+CREATE table images(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-photo_url VARCHAR,
+/*photo_url VARCHAR,*/
 extension VARCHAR,
 user_id INTEGER,
 event_id INTEGER,
-FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
+FOREIGN KEY (event_id) REFERENCES evvents(id) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
