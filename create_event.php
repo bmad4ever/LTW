@@ -19,7 +19,7 @@ if(!checkLogged())
   <body>
     <header>
 	<? login_header(); ?>
-      <h1><a href="index.php">Insert event</a></h1>
+      <h1>Insert event</h1>
     </header>
 	
     <div id="create_event_form">
