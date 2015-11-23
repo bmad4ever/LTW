@@ -31,7 +31,7 @@ if(!checkLogged())
 		<label>Type:
 			<select name="types">
 				<?foreach( $event_type_names as $row){?>
-					<option value="<?=$row['name']?>"><?=$row['name']?></option>
+					<option value="<?=$row['id']?>"><?=$row['name']?></option>
 				<?}?>
 			</select>
         </label>
