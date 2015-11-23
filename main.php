@@ -53,7 +53,7 @@ function main_display()
 		<? main_display(); ?>
     <br>
     <br>
-    <a href="path...events.html">Check all public events</a>
+    <a href="list_events.php?page=1">Check all public events</a>
 	<br>
 </body>
 
