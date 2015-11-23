@@ -25,33 +25,30 @@ include("header.php");
 <html>
 
   <head>
-    <title>Event</title>
+    <title><?=$event_info['title']?></title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/myStyle.css"> 
   </head>
   <body>
-  
-  <?foreach($event_info as $row){?>
+
   
     <header>
-      <h1><?=$row['title']?></title></h1>
+      <h1><?=$event_info['title']?></title></h1>
     </header>
 	
 	<div id="list_event">
 		
-			<p>Creator: <?=$row['username']?></p>
-			<p>Date: <?=$row['event_date']?></p>
-			<p>Tipo: <?=$row['name']?></p>
-			<p>Description: <?=$row['description']?></p>
+			<p>Creator: <?=$event_info['username']?></p>
+			<p>Date: <?=$event_info['event_date']?></p>
+			<p>Tipo: <?=$event_info['name']?></p>
+			<p>Description: <?=$event_info['description']?></p>
 			
 			<h3>Comments</h3>
-				<?foreach($comments as $row1){?>
-					User: <?=$row1['username']?>
-					<?=$row1['comment_text']?>
+				<?foreach($comments as $row){?>
+					User: <?=$row['username']?>
+					<?=row['comment_text']?>
 				<?}?>
 	</div>
-	
-	 <?}?>
 	
   </body>
 
