@@ -9,6 +9,7 @@
     $getquery_match= "(\?[a-z+&\$_.-][a-z0-9;:@&%=+\/\$_.-]*)?"; // GET Query 
     $anchor_match= "(#[a-z_.-][a-z0-9+\$_.-]*)?"; // Anchor 
 	$title_match="([\w \<\>\/])+";//title
+	$number_match="[0-9]+";//number
 	
 	 $allowedtags='<p><a><strong><em><code>';
 	 

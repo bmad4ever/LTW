@@ -104,6 +104,7 @@ $current_datetime = date("Y-m-d H:i:s");
 
   //get new image id (is it ok?)
   $image_id = $dbh->lastInsertId();
+  $image_id = md5("$image_id");
   
   //save image file and thumbnails
   $originalFileName = "images/originals/$image_id.$file_extension";
