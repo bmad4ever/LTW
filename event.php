@@ -23,15 +23,17 @@ include("getInputSafe.php");
   //get event comments
   $stmt = $dbh->prepare("SELECT * from comments
 						INNER JOIN users ON users.id=comments.user_id
-						WHERE comments.event_id= ?");
+						WHERE comments.event_id= ? ORDER BY date_comment DESC");
   $stmt->execute(array($id));
   $comments = $stmt->fetchAll();
+  
+  $last_comment_id = end($comments)['id'];
    
-   	function htmlencode($str) {
+ /*  	function htmlencode($str) {
     $str = HTMLPurifier_Encoder::cleanUTF8($str);
     $str = htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     return $str;
-}
+}*/
    
 ?>
 <!DOCTYPE HTML>
@@ -44,18 +46,26 @@ include("getInputSafe.php");
 	
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	
-	<script type="text/javascript"> 
-	//safe against XSS, id already checked with preg_match at header
-	var event_id; 
-	$event_id = <?php echo (json_encode($id)); ?>; 
+	<script type="text/javascript">
+	//safe against XSS!!! id already checked with preg_match at header
+    <?php 
+		echo ("var event_id=".json_encode($id).";"); 
+		echo ("var last_comment_id=0;");//.json_encode($last_comment_id).";");
+		//variables only created if user is logged!
+		if(validate_user()){
+		echo ("var userid=".json_encode($_SESSION['login_user']).";");
+		echo ("var username=".json_encode($_SESSION['login_username']).";");	
+		}
+	?>
 	</script>
-	
+	<? if(validate_user()) echo "<script type=\"text/javascript\" src=\"login_funcs.js\"></script>"; ?>
 	<script type="text/javascript" src="event.js"></script>
 	
   </head>
   <body>
 
-    <header>
+    <header
+		<? login_header(); ?>
       <h1><?=$event_info[0]['title']?></title></h1>
     </header>
 	
@@ -66,14 +76,16 @@ include("getInputSafe.php");
 			<p>Tipo: <?=$event_info[0]['name']?></p>
 			<p>Description: <?=$event_info[0]['description']?></p>
 			
-			<h3>Comments</h3>
-				<?foreach($comments as $row){?>
-				<div id="comment">	User: <?=$row['username']?>
-					<br>
-					<?=$row['comment_text']?>
-				</div>
-				<?}?>
 	</div>
+	
+	<h3 id="comments" >Comments</h3>
+	
+	<?/*foreach($comments as $row){?>
+	<div class="comment">	
+	<?=$row['username']?> on <?= $row['date_comment']?>
+	<br><?=$row['comment_text']?>
+	</div>
+	<?}*/?>
  
   </body>
 

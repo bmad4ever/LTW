@@ -1,4 +1,5 @@
 <?php
+/*note: a login user should have the id stored in 'login_user' and the username in 'login_username'*/
 session_start();
 
   $dbh = new PDO('sqlite:database.db');
@@ -63,6 +64,12 @@ function validate_date($date)
 	 if($date == date("Y-m-d",null))
 		return false;
 	return true;
+}
+
+function echo_get($var)
+{
+	if(isset($_GET[$var])) echo $_GET[$var];
+	else echo $var;
 }
 
 ?>
