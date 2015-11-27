@@ -21,13 +21,13 @@ function checkLogged()
 
 function display_logged_form(){
 echo '<ul id="loggedin_options"> 
-<li> <a href="my_activities.html">My Activities</a> </li>
-<li> <a href="create_event.html">Create event</a> </li>
-<li> <a href="register_4event.html">Register for an event</a> </li>
+<li> <a href="my_activities.php">My Activities</a> </li>
+<li> <a href="create_event.php">Create event</a> </li>
+<li> <a href="register_4event.php">Register for an event</a> </li>
 </ul>';
- echo '<br><h2>'.$_SESSION['login_username'].'</h2>';
+ echo '  <h2>'.$_SESSION['login_username'].'</h2>';
  echo
- ' <br><FORM METHOD="LINK" ACTION="log_out.php">
+ '   <FORM METHOD="LINK" ACTION="log_out.php">
 <INPUT class="form_button" TYPE="submit" VALUE="LOGOUT">
 </FORM>';
 }

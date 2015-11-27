@@ -2,7 +2,7 @@
 
 function add_send_comment()
 {
-	$('#comments').before("<br><label id=\"addcomment\">Add New Comment<br></label>");
+	$('#comments_header').aftter("<br><section id=\"addcomment\">Add New Comment<br></section>");
 	
 	comment_textarea = $('<textarea id="new_comment"></textarea><br>');
 	$('#addcomment').append(comment_textarea);
@@ -10,11 +10,6 @@ function add_send_comment()
 	var upload_button = $('<input type="submit" value="send comment"><br>');
 	upload_button.click(send_comment);
 	$('#addcomment').append(upload_button);
-	
-}
-
-function add_send_image()
-{
 	
 }
 

@@ -2,10 +2,27 @@
 include('header.php');
 $result;//users with given username (and password, depending on the method called)
 
-if( $_POST['prev_page_validation'] !== "siadoNMWFI193468bubw" ){
-	header("location: main.php?errorMsg=".urlencode("Tried to Login from unknown source."));
-return;
-}
+sleep(1);//avoid spam
+
+// ----------------------- VALIDATE OPERATION
+
+if ($_SERVER["REQUEST_METHOD"] != "POST") 	{
+	 header("location: main.php?errorMsg=".urlencode("Illegal call to log_in.php"));
+	 return '';	
+	}
+	
+	if( !isset($_POST['log_username'])
+	||!isset($_POST['log_password'])
+	||$_POST['log_username']===null
+	||$_POST['log_username']===""
+	||$_POST['log_password']===null
+	||$_POST['log_password']==="")
+	{
+	 header("location: main.php?errorMsg=".urlencode("Field is Empty!"));
+	 return '';	
+	}
+	
+// ----------------------- AUX FUNCS
 
 function number_of_usersnamed()
 {
@@ -26,17 +43,8 @@ function number_of_usersnamed_with_pass()
 	return count($result);
 }
 
-if( !isset($_POST['log_username'])
-	||!isset($_POST['log_password'])
-	||$_POST['log_username']===null
-	||$_POST['log_username']===""
-	||$_POST['log_password']===null
-	||$_POST['log_password']==="")
-	{
-	 header("location: main.php?errorMsg=".urlencode("Field is Empty!"));
-	 return '';	
-	}
-
+// ----------------------- REGISTER CASE
+	
  if($_POST['choice']=="REGISTER")
 {
 	if($_POST['log_password_conf']!=$_POST['log_password'])
@@ -54,21 +62,25 @@ if( !isset($_POST['log_username'])
 		$stmt = $dbh->prepare("INSERT INTO users VALUES(NULL, ?,?)");
 		$stmt->execute(array($_POST['log_username'], md5($_POST['log_password'])));
 		
-		header("location: main.php?regok=");
+		//header("location: main.php?regok="); will proceed to login
 	}
-	else header("location: main.php?errorMsg=".urlencode("Username already in use"));
-	 return '';
+	else {
+		header("location: main.php?errorMsg=".urlencode("Username already in use"));
+	return '';
+	}
 }
 else if($_POST['choice']!="LOGIN") 
 {
 	echo "INVALID ACCESS";
 	return '';
 }
-//session_start();
 
-sleep(1);
+// ----------------------- LOGIN CASE
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if($_POST['choice']=="LOGIN" && $_POST['prev_page_validation'] !== "siadoNMWFI193468bubw" ){
+	header("location: main.php?errorMsg=".urlencode("Tried to Login from unknown source."));
+return;
+}
 
     // If result matched $myusername and $mypassword, table row must be 1 row
     if (number_of_usersnamed_with_pass() == 1) {
@@ -83,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("location: main.php?errorMsg=".urlencode("Your username or password is Invalid"));
 		//???session_destroy();???
     }
-}
+
 
 //should check $_SERVER['HTTP_REFERER']
 

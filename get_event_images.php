@@ -16,7 +16,7 @@ $db = new PDO('sqlite:database.db');
 //send num of images followed by the images to use  
   $result = array();
   $result[] = $num_img;
-  $result[] = "images/thumbs_medium/";
+ // $result[] = "images/thumbs_medium/";
   foreach ($images as $img)
     $result[] = md5($img['id']) . "." . $img['extension'];  
   

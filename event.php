@@ -70,6 +70,8 @@ include("getInputSafe.php");
       <h1><?=$event_info[0]['title']?></title></h1>
     </header>
 	
+	
+	
 	<section id="pseudo_chat" >
 				<? 
 	if($valid_user)
@@ -79,9 +81,11 @@ include("getInputSafe.php");
 		<input type="submit" value="upload image">
       </form>';
 	?>
-	<h3 id="comments" >Comments</h3>
-	
+	<h3 id="comments_header" >Comments</h3>
 	</section>
+	
+	<div id="comments" > </div>
+	
 	
   	<aside id="event">
 		<section>
@@ -90,14 +94,14 @@ include("getInputSafe.php");
 			<p>Tipo: <?=$event_info[0]['name']?></p>
 			<p>Description:<br> <?=$event_info[0]['description']?></p>
 		</section>
-		
-			<section id="image_slider">
-	
-	</section>
+
+		</section id="registered_users">
+			<p><strong>Registered Users</strong></p>
+		</section>
 		
 	</aside>
 	
-
+	<footer id="image_slider"></footer>
 
 
  

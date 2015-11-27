@@ -6,7 +6,7 @@ $().ready(loadDocument);
 //var displayed_image;
 var images;
 var image_len;
-var image_path;
+//var image_path;
 var image_2_show;
 var img_slider_created;
 
@@ -45,9 +45,9 @@ function link_image(path,id,image)
 
 function imagesLoaded(data) {
 
-images = data.slice(2,data.length);
+images = data.slice(1,data.length);
  image_len=data[0];
- image_path=data[1];
+ //image_path=data[1];
  
  if (!img_slider_created)
 {
@@ -72,14 +72,14 @@ function create_image_slider()
   sliderimg.click(update_highres_src);
  $('#image_slider').prepend(sliderimg);
  
- var highres = $(link_image("images/originals/","high_res_img",images[0]));
- $('#pseudo_chat').after(highres);
- 
   var prev = $('<input class="slider_button" value="<">');
  prev.click(move_slider_minus1);
  $('#image_slider').prepend(prev); 
  
  img_slider_created=true;
+ 
+  var highres = $(link_image("images/originals/","high_res_img",images[0]));
+ $('#pseudo_chat').after(highres);
 }
 
 
@@ -142,7 +142,7 @@ function refresh() {
 function display_new_comment(com){
 var newcomment=$("<div class='comment'><h2>"+ com['username'] +" on "+ com['date_comment'] +"</h2><section>"+ com['comment_text'] +"</section></div>");
 newcomment.fadeIn(500);
-$('#comments').after(newcomment);
+$('#comments').prepend(newcomment);
 
 }
 
