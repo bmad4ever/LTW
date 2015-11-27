@@ -10,7 +10,7 @@ body {
     align-self: center;
     align-content: center;
     text-align: center;
-     margin-top: 20%;
+     margin-top: 40vh;
 }
 
 body *{
@@ -260,4 +260,26 @@ textarea{
 #create_event_form *{
 max-width:40vh;
 left:50%;
+}
+
+#list_events{
+    margin:0;
+    padding: 0 1em;
+}
+
+table{ display: table }
+
+table tr{
+display: table-row;
+}
+
+table td{
+display: table-cell;
+}
+
+.list_img_thumbs{
+    margin: 0;
+    padding: 0;
+    width:40%;
+    height:40%;
 }

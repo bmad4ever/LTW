@@ -16,6 +16,12 @@
    ON users.id=events.owner
    INNER JOIN eventTypes
    ON eventTypes.id=events.eventtype
+   LEFT JOIN (
+      Select images.event_id as image_event_id, images.extension,min(images.id) as image_id 
+        from images 
+        group by images.event_id
+     ) 
+   ON image_event_id = events.id 
    ORDER BY event_date
    LIMIT 5 OFFSET ?");
   $stmt->execute(array(5 * ($page - 1)));
@@ -35,14 +41,14 @@
   
     <header>
 		<? login_header(); ?>
-      <h1>Public events</title></h1>
+      <h1>Public events</h1>
     </header>
 	
 	<div id="list_events">
 		<table>
 		<?foreach($events as $row){?>
 			<tr>
-				<td>IMAGE</td>
+				<td><? echo "<img class='list_img_thumbs' src='images/thumbs_small/".md5($row['image_id']).".".$row['extension']."'>"?> </td>
 				<td>
 					<p><?=$row['title']?> @ <?=$row['event_date']?></p>
 					<p><?=$row['name']?> by <?=$row['username']?></p>
