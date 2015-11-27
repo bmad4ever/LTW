@@ -8,6 +8,7 @@ var images;
 var image_len;
 var image_path;
 var image_2_show;
+var img_slider_created;
 
 //comments rlated variables
 var last_comment_id;
@@ -43,33 +44,42 @@ function link_image(path,id,image)
 
 
 function imagesLoaded(data) {
-	image_len=1;
+
 images = data.slice(2,data.length);
  image_len=data[0];
  image_path=data[1];
  
-//debug$('#event').prepend(image_len  + "  ");
-if(image_len>0)
-//	$('#event').prepend('<img src="images/thumbs_medium/'
-// + images[0] + '"/>');
- $('#event').prepend(link_image("images/thumbs_small/","main_image",images[0]));
-// $('#event').after(link_image("slider_img",images[0]));
-create_image_slider();
+ if (!img_slider_created)
+{
+	//debug$('#event').prepend(image_len  + "  ");
+	if(image_len>0)
+	//	$('#event').prepend('<img src="images/thumbs_medium/'
+	// + images[0] + '"/>');
+	$('#event').prepend(link_image("images/thumbs_medium/","main_image",images[0]));
+	// $('#event').after(link_image("slider_img",images[0]));
+	create_image_slider();
+}
+
 }
 
 function create_image_slider()
 {
- var next = $('<input id="next_image_button" value=">">');
+ var next = $('<input class="slider_button" value=">">');
  next.click(move_slider_plus1);
- $('#event').after(next); 
+ $('#image_slider').prepend(next); 
  
- var displayed_image = $(link_image(image_path,"slider_img",images[0]));
- //displayed_image.src("dfghj");
- $('#event').after(displayed_image);
+ var sliderimg = $(link_image("images/thumbs_small/","slider_img",images[0]))
+  sliderimg.click(update_highres_src);
+ $('#image_slider').prepend(sliderimg);
  
-  var prev = $('<input id="prev_image_button" value="<">');
+ var highres = $(link_image("images/originals/","high_res_img",images[0]));
+ $('#pseudo_chat').after(highres);
+ 
+  var prev = $('<input class="slider_button" value="<">');
  prev.click(move_slider_minus1);
- $('#event').after(prev); 
+ $('#image_slider').prepend(prev); 
+ 
+ img_slider_created=true;
 }
 
 
@@ -83,28 +93,40 @@ function update_create_image_slider(move)
 {
 	image_2_show=(image_2_show+move)%image_len;
 	if(image_2_show<0) image_2_show = image_len-1;
-	$("#slider_image img").attr("src",image_path + images[image_2_show]);
+	$("#slider_img").fadeOut(550);
+	window.setTimeout(function(){ 
+	document.getElementById("slider_img").src="images/thumbs_small/" + images[image_2_show];
+	$("#slider_img").fadeIn(500);
+	},500);
+}
+
+function update_highres_src()
+{
+	$("#high_res_img").fadeOut(500);
+	window.setTimeout(function(){ 
+	document.getElementById("high_res_img").src="images/originals/" + images[image_2_show];
+	$("#high_res_img").fadeIn(500);
+	},500);
 }
 
 function loadDocument() {
-
+	//start variables
+img_slider_created=false;
  image_2_show=0;
 
 //general functionalities 
-load_images();
-
+refresh();
 window.setInterval(refresh, 5000);
-//if(image_len>1)
 
 //login functionalities
 if(typeof(add_send_comment) == "function") add_send_comment();
-
-
 
 }
 
 //update comments and images
 function refresh() {
+	//update images
+	load_images();
 	//update comments
 	$.getJSON("retrievecomments.php", {'last_id': last_comment_id,'event_id':event_id}, function(comments){
 		if(comments!=null && comments.length>0){
@@ -115,10 +137,12 @@ function refresh() {
 		}
 	}
 	);
-	//update images
 }
 
 function display_new_comment(com){
-$('#comments').after("<div class='comment'>"+ com['username'] +" on "+ com['date_comment'] +"<br>"+ com['comment_text'] +"</div>");
+var newcomment=$("<div class='comment'><h2>"+ com['username'] +" on "+ com['date_comment'] +"</h2><section>"+ com['comment_text'] +"</section></div>");
+newcomment.fadeIn(500);
+$('#comments').after(newcomment);
+
 }
 

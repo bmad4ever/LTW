@@ -4,7 +4,7 @@ include('header.php');
 
 if(!checkLogged())
 {
-	header("Location: main.php?errorMsg=".urlencode("Illegal Access to Upload Event page!"));
+	header("Location: main.php");//?errorMsg=".urlencode("Illegal Access to Upload Event page!"));
 	return '';
 }
 
@@ -12,24 +12,24 @@ if(!checkLogged())
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>Insert event</title>
+    <title>Create event</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/myStyle.css"> 
   </head>
   <body>
     <header>
 	<? login_header(); ?>
-      <h1>Insert event</h1>
+      <h1>Create event</h1>
     </header>
 	
     <div id="create_event_form">
       
 	  <form action="upload.php" method="post" enctype="multipart/form-data">
         <label>Title:
-          <input type="text" name="title">
+          <input type="text" name="title" value= <? echo_get('title') ?> >
         </label>
 		<label>Type:
-			<select name="types">
+			<select name="types"  value= <? echo_get('type') ?>>
 				<?foreach( $event_type_names as $row){?>
 					<option value="<?=$row['id']?>"><?=$row['name']?></option>
 				<?}?>
@@ -37,7 +37,7 @@ if(!checkLogged())
         </label>
 
 		<label>Date:
-          <input type="date" name="event_date">
+          <input type="date" name="event_date"  value= <? echo_get('date') ?>>
         </label>
 		
         <input type="file" name="image">

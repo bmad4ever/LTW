@@ -1,35 +1,169 @@
-body{
-    width:800px;
-    margin:0 auto;/*center stuff*/
-   
-        align-items:center;
-    align-self:center;
-     align-content:center;
-     text-align:center;
-     
+/*-------- MAIN STUFF ------------------------------*/
+* {
+    font: Helvetica, Verdana, sans-serif;
 }
 
-header span{
-display: inline-block;
+body {
+    width: 90%;
+    margin: 0 auto; /*center stuff*/
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    text-align: center;
+     margin-top: 20%;
 }
 
-header h1{
-  text-shadow: 0 1px 0 #ccc, /* shadow from http://markdotto.com/playground/3d-text/*/
-               0 2px 0 #c9c9c9,
-               0 3px 0 #bbb,
-               0 4px 0 #b9b9b9,
-               0 5px 0 #aaa,
-               0 6px 1px rgba(0,0,0,.1),
-               0 0 5px rgba(0,0,0,.1),
-               0 1px 3px rgba(0,0,0,.3),
-               0 3px 5px rgba(0,0,0,.2),
-               0 5px 10px rgba(0,0,0,.25),
-               0 10px 10px rgba(0,0,0,.2),
-               0 20px 20px rgba(0,0,0,.15);
-  font-size:3em;
+body *{
+   display: inline-block;
 }
 
-.box tr{
+/*header span {
+    display: inline-block;
+}*/
+
+header h1 {
+    color:white;
+    text-shadow: 0 1px 0 #ccc, /* shadow from http://markdotto.com/playground/3d-text/*/
+    0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+    font-size: 3em;
+}
+
+/*-------- NAVIGATION MENU ------------------------*/
+/*adaptado de from http://designshack.net/articles/css/5-simple-and-practical-css-list-styles-you-can-copy-and-paste/*/
+
+header{
+    position: fixed;
+    width:100%;
+    top:0;
+    left:0;
+     background:border-box;  background-color: #27313b;
+}
+
+header{
+     color:white;
+}
+
+nav h2 {
+    font-weight: bold;
+    text-decoration: none;
+    color: #aaa;
+    font: 3em;
+    margin: 0;
+}
+
+nav ul {
+    overflow: auto;
+    list-style-type: none;
+}
+
+    nav ul li {
+        display: inline-block;
+        height: 20px;
+        margin-right: 0px;
+        border-right: 1px solid #aaa;
+        padding: 0 20px;
+    }
+
+        nav ul li:last-child {
+            border-right: none;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #ccc;
+            font: 3em;
+            text-transform: uppercase;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+            nav ul li a:hover {
+                color: #666;
+            }
+
+        nav ul li.active a {
+            font-weight: bold;
+            color: white;
+            /*color: #333;*/
+        }
+
+/*---------- event.php display ------------------------------------*/
+
+section#pseudo_chat {
+    float: right;
+    margin: 0 1.5%;
+    width: 20%;
+    top:20%;
+    /*transform:translate(0,20%);*/
+
+}
+
+section#pseudo_chat *{
+    text-align: left;
+}
+
+aside#event {
+    display:block;
+    float: left;
+    margin: 0 1.5%;
+    width: 20%;
+    position:fixed;
+    /*transform:translate(0,25%);*/
+    font:1em;
+}
+
+#main_image {
+    width: 100%;
+}
+
+#high_res_img {
+
+  margin: 0;
+  align-items: baseline;
+  float:right;
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -15%);
+  max-height:40vh;
+  max-width:50vw;
+}
+
+#slider_img {
+    width: 70%;
+    /*position:relative;*/
+    transform: translate(0,48%);
+    margin: 0.2em;
+    padding:0;
+}
+
+
+.comment {
+   /* text-align: left;*/
+    width: 98%;
+    border: 1px solid;
+    border-radius: 4px;
+    box-shadow: 0 1px 0 #aaa, 0 2px 0 #bbb, 0 3px 0 #ddd;
+    margin-top: 0.4em;
+    padding: 0.1em;
+}
+    
+    .comment h2 {
+        text-indent:2%;
+        transform: translate(0,-5%);
+        width: 95%;
+        font-size: 1em;
+        margin:0 0 0 0;
+        border: 1px solid;
+        border-radius: 5px;
+        font-weight: bold;
+        background-color: #eee;
+    }
+
+/*.box tr{
     box-shadow:
         0 1px 0 #ccc, 
                0 2px 0 #c9c9c9,
@@ -52,89 +186,78 @@ header h1{
     
     display: inline-block;
     font-size: 12px;
-}
+}*/
 
-.form_button{
-    box-shadow:
-        0 1px 0 #ccc, 
-               0 2px 0 #c9c9c9,
-               0 3px 0 #bbb,
-               0 4px 0 #b9b9b9,
-               0 5px 0 #aaa,
-               0 6px 1px rgba(0,0,0,.1),
-               0 0 5px rgba(0,0,0,.1),
-               0 1px 3px rgba(0,0,0,.3),
-               0 3px 5px rgba(0,0,0,.2),
-               0 5px 10px rgba(0,0,0,.25);
+/*--------- form button class -------------------------------------*/
 
+.form_button {
+    box-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25);
     background-color: white;
-        border-radius: 3px;
+    border-radius: 3px;
     border-style: solid;
     border-width: 1px;
     color: black;
-    
     display: inline-block;
     font-size: 12px;
     margin: 10px 2px 5px 2px;
-    padding: 4px  8px;
-   /* text-decoration: none;*/
-   /*   text-decoration:solid;*/
-       position: relative;
-        top: 0px;
+    padding: 4px 8px;
 }
-.form_button:hover{
-        box-shadow: 
-               0 2px 0 #bbb,
-               0 3px 0 #b9b9b9,
-               0 4px 0 #aaa,
-               0 6px 1px rgba(0,0,0,.1),
-               0 0 5px rgba(0,0,0,.1),
-               0 1px 3px rgba(0,0,0,.3),
-               0 3px 5px rgba(0,0,0,.2),
-               0 5px 10px rgba(0,0,0,.25);
+
+    .form_button:hover {
+        box-shadow: 0 2px 0 #bbb, 0 3px 0 #b9b9b9, 0 4px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25);
         background-color: #ebebeb;
-    position: relative;
+        position: relative;
         top: 1px;
-   /* text-decoration: none;*/
-   /*   text-decoration:solid;*/
-}
-.form_button:active{
-            box-shadow: 
-               0 2px 0 #bbb,
-               0 3px 0 #b9b9b9,
-               0 4px 0 #aaa,
-               0 6px 1px rgba(0,0,0,.1),
-               0 0 5px rgba(0,0,0,.1),
-               0 1px 3px rgba(0,0,0,.3),
-               0 3px 5px rgba(0,0,0,.2);
+    }
+
+    .form_button:active {
+        box-shadow: 0 2px 0 #bbb, 0 3px 0 #b9b9b9, 0 4px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2);
         background-color: #ebebeb;
-    position: relative;
+        position: relative;
         top: 3px;
+    }
+
+
+/*--------------- slider button --------------------------*/
+.slider_button {
+    text-align: center;
+    font-weight: bold;
+    border: 0.1em solid;
+    border-radius: 0.3em;
+    height: 1.3em;
+    width: 1.3em;
 }
 
+    .slider_button:hover {
+        text-align: center;
+        font-weight: bold;
+        height: 1.3em;
+        width: 1.3em;
+        background-color: lightgrey;
+    }
 
+    .slider_button:active {
+        text-align: center;
+        font-weight: bold;
+        height: 1.3em;
+        width: 1.3em;
+    }
 
-/*.form_button{
- display: inline-block;
- border:1px solid #000000;
- color: #FFFFFF;
- border-radius: 3px 3px 3px 3px;
- -webkit-border-radius: 3px 3px 3px 3px;
- -moz-border-radius: 3px 3px 3px 3px;
- font-family: Times New Roman;
- width: auto;
- height: auto;
- font-size: 20px;
- padding: 4px 19px;
- text-shadow: 0 1px 0 #474747;
- background-image: linear-gradient(to top, #1260FC, #A9C7FC);
- background-color: #0000FF;
+/*--------------- OTHERS --------------------------*/
+#create_event_form label {
+    display: block;
+    /*color: #FFF;*/
 }
-.form_button:hover, .form_button:active{
- border:1px solid #545151;
- color: #FFFFFF;
- box-shadow: inset 0 1px 0 0 #66A3FF;
- -moz-box-shadow: inset 0 1px 0 0 #66A3FF;
- -webkit-box-shadow: inset 0 1px 0 0 #66A3FF;
- background-color: #74CAFC;
-}*/
+
+textarea{
+    padding: 2px; 
+    width: 90%;
+    height: 5em;
+    resize: none;
+    overflow: auto;
+}
+
+#create_event_form *{
+max-width:40vh;
+left:50%;
+}

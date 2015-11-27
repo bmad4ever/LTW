@@ -2,6 +2,7 @@
 include("header.php");
 include("getInputSafe.php");
 
+	$valid_user = validate_user();
 	$id = $_GET['id'];
 	
   if(!validateInput($number_match,$id))
@@ -52,40 +53,53 @@ include("getInputSafe.php");
 		echo ("var event_id=".json_encode($id).";"); 
 		echo ("var last_comment_id=0;");//.json_encode($last_comment_id).";");
 		//variables only created if user is logged!
-		if(validate_user()){
+		if($valid_user){
 		echo ("var userid=".json_encode($_SESSION['login_user']).";");
 		echo ("var username=".json_encode($_SESSION['login_username']).";");	
 		}
 	?>
 	</script>
-	<? if(validate_user()) echo "<script type=\"text/javascript\" src=\"login_funcs.js\"></script>"; ?>
+	<? if($valid_user) echo "<script type=\"text/javascript\" src=\"login_funcs.js\"></script>"; ?>
 	<script type="text/javascript" src="event.js"></script>
 	
   </head>
   <body>
-
-    <header
+  
+    <header>
 		<? login_header(); ?>
       <h1><?=$event_info[0]['title']?></title></h1>
     </header>
 	
-	<div id="event">
-		
+	<section id="pseudo_chat" >
+				<? 
+	if($valid_user)
+	  echo '<br><form action="sendimage.php" method="post" enctype="multipart/form-data">
+		<input type="file" name="image">
+		<input type="hidden" name="event_id" value="'.$_GET['id'].'"])>
+		<input type="submit" value="upload image">
+      </form>';
+	?>
+	<h3 id="comments" >Comments</h3>
+	
+	</section>
+	
+  	<aside id="event">
+		<section>
 			<p>Creator: <?=$event_info[0]['username']?></p>
 			<p>Date: <?=$event_info[0]['event_date']?></p>
 			<p>Tipo: <?=$event_info[0]['name']?></p>
-			<p>Description: <?=$event_info[0]['description']?></p>
-			
-	</div>
+			<p>Description:<br> <?=$event_info[0]['description']?></p>
+		</section>
+		
+			<section id="image_slider">
 	
-	<h3 id="comments" >Comments</h3>
+	</section>
+		
+	</aside>
 	
-	<?/*foreach($comments as $row){?>
-	<div class="comment">	
-	<?=$row['username']?> on <?= $row['date_comment']?>
-	<br><?=$row['comment_text']?>
-	</div>
-	<?}*/?>
+
+
+
  
   </body>
 

@@ -12,41 +12,63 @@ session_start();
 function checkLogged()
 {
 	 if (isset($_SESSION['login_user'])
-		 &&  $_SESSION['login_user']!=null) return true;
+		 &&  $_SESSION['login_user']!=null
+	 && isset($_SESSION['login_username'])
+		 &&  $_SESSION['login_username']!=null
+	 ) return true;
 	return false;
 }
 
-function display_logout_form(){
+function display_logged_form(){
+echo '<ul id="loggedin_options"> 
+<li> <a href="my_activities.html">My Activities</a> </li>
+<li> <a href="create_event.html">Create event</a> </li>
+<li> <a href="register_4event.html">Register for an event</a> </li>
+</ul>';
+ echo '<br><h2>'.$_SESSION['login_username'].'</h2>';
  echo
- '<FORM METHOD="LINK" ACTION="log_out.php">
-<BR><INPUT class="form_button" TYPE="submit" VALUE="LOGOUT">
+ ' <br><FORM METHOD="LINK" ACTION="log_out.php">
+<INPUT class="form_button" TYPE="submit" VALUE="LOGOUT">
 </FORM>';
 }
 
-function login_header()
-{
-	if(session_status()===PHP_SESSION_ACTIVE && checkLogged())
-		display_logout_form();
-	else echo
+function display_login_form(){
+	echo
     '
 	<form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
 	<span>
     username:<input type="text" name="log_username"></text>
 	password:<input type="password" name="log_password"></text>
         </span>
+		<input type="hidden" name="prev_page_validation" value="siadoNMWFI193468bubw"])>
 			<input class="form_button" type="submit" name="choice" value="LOGIN">
     </form>
 	';
+}
+
+function login_header()
+{
+	echo '<nav>';
+	
+	if(session_status()===PHP_SESSION_ACTIVE && checkLogged())
+		display_logged_form();
+	else display_login_form();
+	
 		if(isset($_GET['errorMsg'])) 
 	{	
 		echo '<span>';
 		echo $_GET['errorMsg'];
 		echo '</span>';
 	}
+	
+	echo '</nav><br>';
 }
 
 function validate_user(){
   	
+	if(!(session_status()===PHP_SESSION_ACTIVE)) return false;
+	if( !checkLogged() ) return false;
+	
 	$db = new PDO('sqlite:database.db');
 	$stmt = $db->prepare('SELECT username FROM users WHERE id = ?');
 	$stmt->execute(array($_SESSION['login_user'])); 
@@ -66,6 +88,7 @@ function validate_date($date)
 	return true;
 }
 
+//echo get value if exists, or print var otherwise 
 function echo_get($var)
 {
 	if(isset($_GET[$var])) echo $_GET[$var];

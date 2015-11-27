@@ -1,7 +1,11 @@
 ﻿<?php
-
-sleep(1);//avoid login spamming
+include('header.php');
 $result;//users with given username (and password, depending on the method called)
+
+if( $_POST['prev_page_validation'] !== "siadoNMWFI193468bubw" ){
+	header("location: main.php?errorMsg=".urlencode("Tried to Login from unknown source."));
+return;
+}
 
 function number_of_usersnamed()
 {
@@ -60,7 +64,9 @@ else if($_POST['choice']!="LOGIN")
 	echo "INVALID ACCESS";
 	return '';
 }
-session_start();
+//session_start();
+
+sleep(1);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -71,7 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['login_user'] = $aux;// $_POST['log_username'];
 		$_SESSION['login_username'] = $_POST['log_username'];
 		//print for debug purposes, can be removed later
-        header("location: main.php?logok=$aux");
+		if(validate_user())	
+			header('Location: ' . str_replace( "errorMsg","pEM",$_SERVER['HTTP_REFERER']));//header("location: main.php?logok=$aux");
     } else {
         header("location: main.php?errorMsg=".urlencode("Your username or password is Invalid"));
 		//???session_destroy();???
