@@ -1,7 +1,13 @@
 <?php
 	include("header.php");
 	
-	$page=$_GET['page'];
+	if (isset($_GET['page'])){
+		//$page=$_GET['page'];
+		$page=filter_input(INPUT_GET,'page',FILTER_SANITIZE_NUMBER_INT);
+	} else {
+		$page=1;
+	}
+
 
 	//get number of pages
 	$stmt = $dbh->prepare("SELECT COUNT(*) as count from events");
@@ -21,7 +27,7 @@
         from images 
         group by images.event_id
      ) 
-   ON image_event_id = events.id 
+   ON image_event_id = events.id_event 
    ORDER BY event_date
    LIMIT 5 OFFSET ?");
   $stmt->execute(array(5 * ($page - 1)));
@@ -40,21 +46,21 @@
 
   
     <header>
-		<? login_header(); ?>
+		<?php login_header(); ?>
       <h1>Public events</h1>
     </header>
 	
 	<div id="list_events">
 		<table>
-		<?foreach($events as $row){?>
+		<?php foreach($events as $row){?>
 			<tr>
-				<td><? echo "<img class='list_img_thumbs' src='images/thumbs_small/".md5($row['image_id']).".".$row['extension']."'>"?> </td>
+				<td><a href="event.php?id=<?=$row['id_event']?>"><?php echo "<img class='list_img_thumbs' src='images/thumbs_small/".md5($row['image_id']).".".$row['extension']."'>"?></a></td>
 				<td>
-					<p><?=$row['title']?> @ <?=$row['event_date']?></p>
+					<p><a href="event.php?id=<?=$row['id_event']?>"><?=$row['title']?> @ <?=$row['event_date']?></a></p>
 					<p><?=$row['name']?> by <?=$row['username']?></p>
 				</td>
 			</tr>
-		<?}?>
+		<?php } ?>
 		</table>
 	</div>
 	<div id="number_pages">

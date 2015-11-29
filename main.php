@@ -47,15 +47,15 @@ function main_display()
 <body>
 
     <header> 
-	<? login_header(); ?>
+	<?php login_header(); ?>
 	<h1>Le EventBook</h1> 
 	</header>
 	
     <br>
-		<? main_display(); ?>
+		<?php main_display(); ?>
     <br>
     <br>
-    <a href="path...events.html">Check all public events</a>
+    <a href="list_events.php">Check all public events</a>
 	<br>
 </body>
 
@@ -65,7 +65,7 @@ function main_display()
         </marquee>
 
        	<br>Date  
-	<div id="date_display"><?// echo date('l jS \of F Y h:i:s A')?></div>
+	<div id="date_display"><?php // echo date('l jS \of F Y h:i:s A')?></div>
 <!-- echo date('l jS \of F Y h:i:s A'); 
 		<!--print_r(getdate()); -->
 	<!--echo date('Y-m-d H:i:s'); -->

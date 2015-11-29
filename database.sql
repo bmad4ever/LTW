@@ -27,7 +27,7 @@ user_id INTEGER,
 event_id INTEGER,
 PRIMARY KEY (user_id,event_id),
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY (event_id) REFERENCES evvents(id) ON DELETE CASCADE
+FOREIGN KEY (event_id) REFERENCES events(id_event) ON DELETE CASCADE
 );
 
 CREATE table comments(
@@ -37,7 +37,7 @@ event_id INTEGER,
 date_comment DATETIME,/*data do comment*/
 comment_text VARCHAR,
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-FOREIGN KEY (event_id) REFERENCES evvents(id) ON DELETE CASCADE
+FOREIGN KEY (event_id) REFERENCES events(id_event) ON DELETE CASCADE
 );
 
 CREATE table images(
@@ -46,7 +46,7 @@ id INTEGER PRIMARY KEY AUTOINCREMENT,
 extension VARCHAR,
 user_id INTEGER,
 event_id INTEGER,
-FOREIGN KEY (event_id) REFERENCES evvents(id) ON DELETE CASCADE,
+FOREIGN KEY (event_id) REFERENCES events(id_event) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 

@@ -17,7 +17,7 @@ include("getInputSafe.php");
    ON users.id=events.owner
    INNER JOIN eventTypes
    ON eventTypes.id=events.eventtype
-   WHERE events.id= ?");
+   WHERE events.id_event= ?");
   $stmt->execute(array($id));
   $event_info = $stmt->fetchAll();
   
@@ -27,6 +27,13 @@ include("getInputSafe.php");
 						WHERE comments.event_id= ? ORDER BY date_comment DESC");
   $stmt->execute(array($id));
   $comments = $stmt->fetchAll();
+  
+  //get event users
+  $stmt = $dbh->prepare("SELECT * from registers
+						INNER JOIN users ON users.id=registers.user_id
+						WHERE registers.event_id= ? ORDER BY username ASC");
+  $stmt->execute(array($id));
+  $registredUsers = $stmt->fetchAll();
   
   $last_comment_id = end($comments)['id'];
    
@@ -59,21 +66,21 @@ include("getInputSafe.php");
 		}
 	?>
 	</script>
-	<? if($valid_user) echo "<script type=\"text/javascript\" src=\"login_funcs.js\"></script>"; ?>
+	<?php if($valid_user) echo "<script type=\"text/javascript\" src=\"login_funcs.js\"></script>"; ?>
 	<script type="text/javascript" src="event.js"></script>
 	
   </head>
   <body>
   
     <header>
-		<? login_header(); ?>
+		<?php login_header(); ?>
       <h1><?=$event_info[0]['title']?></title></h1>
     </header>
 	
 	
 	
 	<section id="pseudo_chat" >
-				<? 
+				<?php 
 	if($valid_user)
 	  echo '<br><form action="sendimage.php" method="post" enctype="multipart/form-data">
 		<input type="file" name="image">
@@ -93,10 +100,19 @@ include("getInputSafe.php");
 			<p>Date: <?=$event_info[0]['event_date']?></p>
 			<p>Tipo: <?=$event_info[0]['name']?></p>
 			<p>Description:<br> <?=$event_info[0]['description']?></p>
+			<form method="post" action="register.php">
+				<input type="hidden" name="event_id" value="<?=$event_info[0]['id_event'];?>">
+				<input type="hidden" name="user_id" value="<?=$_SESSION['login_user']?>">
+				<input type="submit" value="Register">
+			</form>
 		</section>
 
 		</section id="registered_users">
 			<p><strong>Registered Users</strong></p>
+			<?php foreach($registredUsers as $row) { ?>
+				- <?php echo $row['username']; ?><br>
+				
+			<?php } ?>
 		</section>
 		
 	</aside>

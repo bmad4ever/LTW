@@ -18,7 +18,7 @@ if(!checkLogged())
   </head>
   <body>
     <header>
-	<? login_header(); ?>
+	<?php login_header(); ?>
       <h1>Create event</h1>
     </header>
 	
@@ -26,18 +26,18 @@ if(!checkLogged())
       
 	  <form action="upload.php" method="post" enctype="multipart/form-data">
         <label>Title:
-          <input type="text" name="title" value= <? echo_get('title') ?> >
+          <input type="text" name="title" value="" placeholder="<?php echo_get('title'); ?>" >
         </label>
 		<label>Type:
-			<select name="types"  value= <? echo_get('type') ?>>
-				<?foreach( $event_type_names as $row){?>
+			<select name="types">
+				<?php foreach( $event_type_names as $row){?>
 					<option value="<?=$row['id']?>"><?=$row['name']?></option>
-				<?}?>
+				<?php } ?>
 			</select>
         </label>
 
 		<label>Date:
-          <input type="date" name="event_date"  value= <? echo_get('date') ?>>
+          <input type="date" name="event_date"  placeholder="<?php echo_get('date'); ?>">
         </label>
 		
         <input type="file" name="image">
@@ -50,7 +50,7 @@ if(!checkLogged())
           		<input type="checkbox" name="public" value="ok" checked>
         </label>
 		
-		<input type="hidden" name="check" value="<?php echo md5(date("Y-m-d").$_SESSION['log_user']);?>" />
+		<input type="hidden" name="check" value="<?php echo md5(date("Y-m-d").$_SESSION['login_user']);?>" />
 		<br> <input type="submit" value="Upload">
       </form>
 	  
