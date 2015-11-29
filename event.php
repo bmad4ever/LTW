@@ -42,6 +42,14 @@ include("getInputSafe.php");
     $str = htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     return $str;
 }*/
+
+	/*function checkRegister($userid) {
+		$stmt = $dbh->prepare("SELECT COUNT(*) from registers
+						WHERE event_id=? AND user_id=?");
+		$stmt->execute(array($id,$userid));
+		return $stmt->fetch();
+	}*/
+	
    
 ?>
 <!DOCTYPE HTML>
@@ -84,7 +92,7 @@ include("getInputSafe.php");
 	if($valid_user)
 	  echo '<br><form action="sendimage.php" method="post" enctype="multipart/form-data">
 		<input type="file" name="image">
-		<input type="hidden" name="event_id" value="'.$_GET['id'].'"])>
+		<input type="hidden" name="event_id" value="'.$_GET['id'].'")>
 		<input type="submit" value="upload image">
       </form>';
 	?>
@@ -100,14 +108,38 @@ include("getInputSafe.php");
 			<p>Date: <?=$event_info[0]['event_date']?></p>
 			<p>Tipo: <?=$event_info[0]['name']?></p>
 			<p>Description:<br> <?=$event_info[0]['description']?></p>
-			<form method="post" action="register.php">
-				<input type="hidden" name="event_id" value="<?=$event_info[0]['id_event'];?>">
-				<input type="hidden" name="user_id" value="<?=$_SESSION['login_user']?>">
-				<input type="submit" value="Register">
-			</form>
+			
+			<?php
+			if($valid_user) {
+				$stmt = $dbh->prepare("SELECT COUNT(*) as count from registers
+						WHERE event_id=? AND user_id=?");
+				$stmt->execute(array($id,$_SESSION['login_user']));
+				$registered = $stmt->fetch();
+
+				if($registered['count']==0) {
+					echo '<form method="post" action="register.php">
+						<input type="hidden" name="event_id"" value="'.$event_info[0]['id_event'].'">
+						<input type="hidden" name="user_id" value="'.$_SESSION['login_user'].'">
+						<input type="submit" value="Going">
+						</form>';
+				}
+				else {
+					echo '<form method="post" action="register_delete.php">
+						<input type="hidden" name="event_id"" value="'.$event_info[0]['id_event'].'">
+						<input type="hidden" name="user_id" value="'.$_SESSION['login_user'].'">
+						<input type="submit" value="Not going">
+						</form>';
+				}
+			}
+			else {
+				echo '<b>Create an account (or login) to register yourself!</b>';
+			}
+			?>
+			
+			
 		</section>
 
-		</section id="registered_users">
+		<section id="registered_users">
 			<p><strong>Registered Users</strong></p>
 			<?php foreach($registredUsers as $row) { ?>
 				- <?php echo $row['username']; ?><br>
