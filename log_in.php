@@ -77,7 +77,7 @@ function number_of_users_with_email()
 		return '';
 	}
 	
-	if(validateInput("*",$postemail))
+	if((validateInput($mail_match,$postemail))===false)
 	{
 		header("location: main.php?errorMsg=".urlencode("\"email\" not accepted"));
 		return '';
