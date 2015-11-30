@@ -122,7 +122,7 @@ include("social_media.php");
   	<aside id="event">
 		<section id="social_media">
 			<?php facebook_share($event_info[0]['id_event']); twitter_share();?>
-		</section><br>
+		</section>
 		<section>
 			<p>Creator: <?=$event_info[0]['username']?></p>
 			<p>Date: <?=$event_info[0]['event_date']?></p>
