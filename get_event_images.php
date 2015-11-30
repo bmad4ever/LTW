@@ -1,4 +1,5 @@
 <?php   
+include("header.php");
 /*$fname = $_GET['firstname'];
       if($fname=='Jeff')
       {
@@ -8,7 +9,7 @@
       }*/
 $db = new PDO('sqlite:database.db');
   $stmt = $db->prepare('SELECT * FROM images WHERE event_id = ?');
-  $stmt->execute(array($_GET['id']));  
+  $stmt->execute(array($_SESSION['display_event_id']));  
   $images = $stmt->fetchAll();
 
   $num_img = count($images); 

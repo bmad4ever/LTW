@@ -1,10 +1,10 @@
 <?php
-
+include("header.php");
 //if (isset($_GET['event_id'])) {
   // Current time
   //$timestamp = time();
   
-if (isset($_GET['event_id']) && isset($_GET['last_id']) )
+if (isset($_SESSION['display_event_id']) && isset($_GET['last_id']) )
 {
     // Current datetime
   //$current_datetime = date("Y-m-d H:i:s");
@@ -18,7 +18,7 @@ if (isset($_GET['event_id']) && isset($_GET['last_id']) )
   $stmt = $dbh->prepare("SELECT comment_text,date_comment,comments.id,username from comments
 						INNER JOIN users ON users.id=comments.user_id
 						WHERE comments.event_id= ? AND comments.id > ? ORDER BY date_comment DESC LIMIT 10");
-  $stmt->execute(array($_GET['event_id'],$_GET['last_id']));
+  $stmt->execute(array($_SESSION['display_event_id'],$_GET['last_id']));
   $comments = $stmt->fetchAll();
  
   echo json_encode($comments);

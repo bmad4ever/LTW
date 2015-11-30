@@ -72,13 +72,13 @@ include("social_media.php");
 	<script type="text/javascript">
 	//safe against XSS!!! id already checked with preg_match at header
     <?php 
-		echo ("var event_id=".json_encode($id).";"); 
+		$_SESSION['display_event_id']=$id;//echo ("var event_id=".json_encode($id).";"); 
 		echo ("var last_comment_id=0;");//.json_encode($last_comment_id).";");
 		//variables only created if user is logged!
-		if($valid_user){
-		echo ("var userid=".json_encode($_SESSION['login_user']).";");
-		echo ("var username=".json_encode($_SESSION['login_username']).";");	
-		}
+		//if($valid_user){
+		//echo ("var userid=".json_encode($_SESSION['login_user']).";");
+		//echo ("var username=".json_encode($_SESSION['login_username']).";");	
+		//}
 	?>
 	</script>
 	<?php if($valid_user) echo "<script type=\"text/javascript\" src=\"login_funcs.js\"></script>"; ?>
@@ -86,6 +86,9 @@ include("social_media.php");
 	
   </head>
   <body>
+  
+  <!--input type="hidden" id="event_id" data-value=<!--php? echo $id; ?>-->
+  
     <header>
 		<?php login_header(); ?>
       <h1><?=$event_info[0]['title']?></h1>
@@ -102,10 +105,18 @@ include("social_media.php");
 		<input type="submit" value="upload image">
       </form>';
 	?>
-	<h3 id="comments_header" >Comments</h3>
+	<h3 id="show_regs_or_coms_button" >Click me to see Registers</h3>
 	</section>
 	
 	<div id="comments" > </div>
+	
+	<div id="registered_users">
+		<p><strong>Registered Users</strong></p>
+		<?php foreach($registredUsers as $row) { ?>
+			- <?php echo $row['username']; ?><br>
+			
+		<?php } ?>
+	</div>
 	
 	
   	<aside id="event">
@@ -147,17 +158,9 @@ include("social_media.php");
 			
 			
 		</section>
-
-		<section id="registered_users">
-			<p><strong>Registered Users</strong></p>
-			<?php foreach($registredUsers as $row) { ?>
-				- <?php echo $row['username']; ?><br>
-				
-			<?php } ?>
-		</section>
 		
 		<?php
-			if($_SESSION['login_user']==$event_info[0]['owner']) {
+			if($valid_user && $_SESSION['login_user']==$event_info[0]['owner']) {
 				echo '<section id="owner_options">
 						<a href="edit_event.php?id='.$event_info[0]['id_event'].'">Edit</a> |
 						<a href="delete_event.php?id='.$event_info[0]['id_event'].'">Delete</a>

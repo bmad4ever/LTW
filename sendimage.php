@@ -37,7 +37,7 @@ include('bmp_converter.php');
   //insert new image
    sleep(1);//avoid upload spamming
   $stmt = $dbh->prepare("INSERT INTO images VALUES(NULL, ?,?,?)");
-  $stmt->execute(array($file_extension,$_SESSION['login_user'],$_POST['event_id']));
+  $stmt->execute(array($file_extension,$_SESSION['login_user'],$_SESSION['display_event_id']));
 
   //get new image id (is it ok?)
   $image_id = $dbh->lastInsertId();

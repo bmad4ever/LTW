@@ -156,6 +156,18 @@ aside#event p{
     height:24vh;
     top:40vh;
     z-index:3;
+    transform:translate(4vw,0);
+    margin:0;
+        margin-top:8vh;
+}
+
+#registered_users {
+    float: right;
+    /*top:8vh;*/
+      width: 23vw;
+    height:24vh;
+    top:40vh;
+    z-index:3;
     transform:translate(5vw,0);
     margin:0;
         margin-top:8vh;
@@ -196,7 +208,7 @@ aside#event p{
     padding:0;
 }
 
-#comments_header {
+#show_regs_or_coms_button {
     background:border-box;  background-color: white;
     border: 1px solid;
     border-radius: 4px;

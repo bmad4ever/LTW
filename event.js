@@ -13,6 +13,8 @@ var img_slider_created;
 //comments rlated variables
 var last_comment_id;
 
+//register display position
+var hor_registers_position=0;
 
 function load_images()
 {
@@ -31,7 +33,7 @@ tg = "load_event_image.php";// + $event_id;
  //{data: "value"}
 	//$.getJSON("load_event_image.php", { id : 5 }, imagesLoaded);
 	//$.getJSON('load_event_image.php?callback=?','id=5',imagesLoaded);
-	$.getJSON('get_event_images.php?callback=?','id='+event_id,imagesLoaded);
+	$.getJSON('get_event_images.php?callback=?'/*,'id='+event_id*/,imagesLoaded);
 }
 
 function link_image(path,id,image)
@@ -102,18 +104,19 @@ function update_create_image_slider(move)
 
 function update_highres_src()
 {
-	$("#high_res_img").fadeOut(500);
+	$("#high_res_img").fadeOut(550);
 	window.setTimeout(function(){ 
 	document.getElementById("high_res_img").src="images/originals/" + images[image_2_show];
 	$("#high_res_img").fadeIn(500);
 	},500);
 }
 
+// -- -- -- -- -- LOAD DOC -- -- -- -- --
 function loadDocument() {
 	//start variables
 img_slider_created=false;
  image_2_show=0;
-
+ 
 //general functionalities 
 refresh();
 window.setInterval(refresh, 5000);
@@ -121,6 +124,32 @@ window.setInterval(refresh, 5000);
 //login functionalities
 if(typeof(add_send_comment) == "function") add_send_comment();
 
+show_comments=true;
+document.getElementById("registered_users").style.display = "none";
+$('#show_regs_or_coms_button').click(switch_show_list);
+//reg_list_offset = cumulativeOffset(document.getElementById("registered_users"));
+//document.getElementById("registered_users").addEventListener("mousedown", mm);
+}
+
+var show_comments;
+function switch_show_list(){
+	show_comments= !show_comments;
+		
+	if (show_comments)
+	{
+		show=document.getElementById("comments");
+		hide=document.getElementById("registered_users");
+		document.getElementById('show_regs_or_coms_button').innerHTML = "Click me to see Registers";
+	}
+	else
+	{
+		hide=document.getElementById("comments");
+		show=document.getElementById("registered_users");
+		document.getElementById('show_regs_or_coms_button').innerHTML = "Click me to see Comments";
+	}
+	
+	show.style.display = "block";
+	hide.style.display = "none";
 }
 
 //update comments and images
@@ -128,7 +157,7 @@ function refresh() {
 	//update images
 	load_images();
 	//update comments
-	$.getJSON("retrievecomments.php", {'last_id': last_comment_id,'event_id':event_id}, function(comments){
+	$.getJSON("retrievecomments.php", {'last_id': last_comment_id/*,'event_id':event_id*/}, function(comments){
 		if(comments!=null && comments.length>0){
 		last_comment_id=comments[0]['id'];
 		//$('#comments').after(last_comment_id);
