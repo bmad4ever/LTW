@@ -141,6 +141,10 @@ aside#event {
     font:1em;
 }
 
+aside#event* {
+    display:block;
+}
+
 aside#event p{
     display:block;
 }

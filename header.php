@@ -21,9 +21,9 @@ function checkLogged()
 
 function display_logged_form(){
 echo '<ul id="loggedin_options"> 
-<li> <a href="my_activities.php">My Activities</a> </li>
+<li> <a href="main.php">Home</a> </li>
+<li> <a href="my_events.php">My Events</a> </li>
 <li> <a href="create_event.php">Create event</a> </li>
-<li> <a href="register_4event.php">Register for an event</a> </li>
 </ul>';
  echo '  <h2>'.$_SESSION['login_username'].'</h2>';
  echo

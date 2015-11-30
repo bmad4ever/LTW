@@ -1,6 +1,6 @@
 <?php
 
-  $link='http://'.$_SERVER['HTTP_HOST'].$_SERVER[REQUEST_URI];
+  $link='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
   
   //Add facebook share button
   //Source: https://developers.facebook.com/docs/plugins/share-button
