@@ -1,5 +1,6 @@
 <?php 
 include('header.php');
+include('list_events_popular.php');
 
 function display_register_form(){
 	
@@ -52,7 +53,7 @@ function main_display()
 	</header>
 	
     <br>
-		<?php main_display(); ?>
+		<?php main_display(); popular_events();?>
     <br>
     <br>
     <a href="list_events.php">Check all public events</a>

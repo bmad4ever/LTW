@@ -1,6 +1,7 @@
 <?php
 include("header.php");
 include("getInputSafe.php");
+include("social_media.php");
 
 	$valid_user = validate_user();
 	$id = $_GET['id'];
@@ -57,6 +58,12 @@ include("getInputSafe.php");
 
   <head>
     <title><?=$event_info[0]['title']?></title>
+	
+	<meta property="og:url"           content="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/event.php?id='.$event_info[0]['id_event'];?>" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="EventBook - <?=$event_info[0]['title']?>" />
+    <meta property="og:description"   content="<?=$event_info[0]['description']?>" />
+	
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/myStyle.css"> 
 	
@@ -79,10 +86,9 @@ include("getInputSafe.php");
 	
   </head>
   <body>
-  
     <header>
 		<?php login_header(); ?>
-      <h1><?=$event_info[0]['title']?></title></h1>
+      <h1><?=$event_info[0]['title']?></h1>
     </header>
 	
 	
@@ -103,6 +109,9 @@ include("getInputSafe.php");
 	
 	
   	<aside id="event">
+		<section id="social_media">
+			<?php facebook_share($event_info[0]['id_event']); twitter_share();?>
+		</section><br>
 		<section>
 			<p>Creator: <?=$event_info[0]['username']?></p>
 			<p>Date: <?=$event_info[0]['event_date']?></p>

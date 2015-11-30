@@ -17,6 +17,10 @@ body *{
    display: inline-block;
 }
 
+body script{
+   display: none;
+}
+
 /*header span {
     display: inline-block;
 }*/
@@ -135,6 +139,10 @@ aside#event {
     position:fixed;
     transform:translate(0,-20vh);
     font:1em;
+}
+
+aside#event* {
+    display:block;
 }
 
 aside#event p{

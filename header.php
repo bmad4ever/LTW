@@ -21,9 +21,9 @@ function checkLogged()
 
 function display_logged_form(){
 echo '<ul id="loggedin_options"> 
-<li> <a href="my_activities.php">My Activities</a> </li>
+<li> <a href="main.php">Home</a> </li>
+<li> <a href="my_events.php">My Events</a> </li>
 <li> <a href="create_event.php">Create event</a> </li>
-<li> <a href="register_4event.php">Register for an event</a> </li>
 </ul>';
  echo '  <h2>'.$_SESSION['login_username'].'</h2>';
  echo
@@ -37,10 +37,10 @@ function display_login_form(){
     '
 	<form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
 	<span>
-    username:<input type="text" name="log_username"></text>
-	password:<input type="password" name="log_password"></text>
+    username:<input type="text" name="log_username">
+	password:<input type="password" name="log_password">
         </span>
-		<input type="hidden" name="prev_page_validation" value="siadoNMWFI193468bubw"])>
+		<input type="hidden" name="prev_page_validation" value="siadoNMWFI193468bubw">
 			<input class="form_button" type="submit" name="choice" value="LOGIN">
     </form>
 	';

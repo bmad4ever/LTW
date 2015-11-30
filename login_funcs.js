@@ -2,7 +2,7 @@
 
 function add_send_comment()
 {
-	$('#comments_header').aftter("<br><section id=\"addcomment\">Add New Comment<br></section>");
+	$('#comments_header').after("<br><section id=\"addcomment\">Add New Comment<br></section>");
 	
 	comment_textarea = $('<textarea id="new_comment"></textarea><br>');
 	$('#addcomment').append(comment_textarea);
