@@ -7,9 +7,10 @@ function display_register_form(){
 	echo
     '<form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
 
-        <br>username<br><input type="text" name="log_username"></text>
-        <br>password<br><input type="password" name="log_password"></text>
-		<br>confirm password<br><input type="password" name="log_password_conf"></text>
+        <br>Username<br><input type="text" name="log_username">
+        <br>Password<br><input type="password" name="log_password">
+		<br>Confirm password<br><input type="password" name="log_password_conf">
+		<br>Email address<br><input type="email" name="log_email">
         <br><input class="form_button" type="submit" name="choice" value="REGISTER">
     </form>';
 

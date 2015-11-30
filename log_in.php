@@ -1,5 +1,6 @@
 ﻿<?php
 include('header.php');
+include('getInputSafe.php');
 $result;//users with given username (and password, depending on the method called)
 
 sleep(1);//avoid spam
@@ -13,13 +14,17 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") 	{
 	
 	$postusername = htmlentities($_POST['log_username']);
 	$postpass = htmlentities($_POST['log_password']);
+	$postemail = htmlentities($_POST['log_email']);
 	
 	if( !isset($postusername)
 	||!isset($postpass)
+	||!isset($postemail)
 	||$postusername===null
 	||$postusername===""
 	||$postpass===null
-	||$postpass==="")
+	||$postpass===""
+	||$postemail===null
+	||$postemail==="")
 	{
 	 header("location: main.php?errorMsg=".urlencode("Field is Empty!"));
 	 return '';	
@@ -49,6 +54,19 @@ function number_of_usersnamed_with_pass()
 	return count($result);
 }
 
+function number_of_users_with_email()
+{
+	global $postusername;
+	global $postpass;
+	global $postemail;
+	global $result;
+	$db = new PDO('sqlite:database.db');
+	$stmt = $db->prepare('SELECT * FROM users WHERE email LIKE ?');
+	$stmt->execute(array($postemail)); 
+    $result=$stmt->fetchAll();
+	return count($result);
+}
+
 // ----------------------- REGISTER CASE
 	
  if($_POST['choice']=="REGISTER")
@@ -59,20 +77,42 @@ function number_of_usersnamed_with_pass()
 		return '';
 	}
 	
-	if(number_of_usersnamed() === 0 )
+	if(validateInput("*",$postemail))
 	{
-		$dbh = new PDO('sqlite:database.db');
-		$dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		header("location: main.php?errorMsg=".urlencode("\"email\" not accepted"));
+		return '';
+	}
+	
+	if(number_of_usersnamed() === 0)
+	{
+		if(number_of_users_with_email() === 0 ) {
+			
+			//generate activation code
+			$length = 10;
+			$code = "";
+			$valid = "0123456789abcdefghijklmnopqrstuvwxyz";
+			for ($i = 0; $i < $length; $i++) {
+				$code.=$valid[mt_rand(0, strlen($valid))];
+			}
 		
-		$stmt = $dbh->prepare("INSERT INTO users VALUES(NULL, ?,?)");
-		$stmt->execute(array($postusername, md5($postpass)));
+			$dbh = new PDO('sqlite:database.db');
+			$dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		//header("location: main.php?regok="); will proceed to login
+			$stmt = $dbh->prepare("INSERT INTO users VALUES(NULL, ?,?,?,?,?)");
+			$stmt->execute(array($postusername, md5($postpass),$postemail,0,$code));
+		
+			header("location: main.php");
+		}
+		else {
+			header("location: main.php?errorMsg=".urlencode("Email already in use"));
+			return '';
+		}
+		
 	}
 	else {
 		header("location: main.php?errorMsg=".urlencode("Username already in use"));
-	return '';
+		return '';
 	}
 }
 else if($_POST['choice']!="LOGIN") 

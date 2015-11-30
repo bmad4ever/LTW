@@ -1,7 +1,10 @@
 CREATE table users(
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 username VARCHAR,
-password VARCHAR
+password VARCHAR,
+email VARCHAR(320),
+active BOOLEAN,
+code VARCHAR
 );
 
 CREATE table eventTypes(
