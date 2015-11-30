@@ -47,7 +47,7 @@ if(!checkLogged())
       <h1>Edit event</h1>
     </header>
 	
-    <div id="edit_event_form">
+    <div id="create_event_form">
       
 	  <form action="upload_edit.php" method="post" enctype="multipart/form-data">
         <label>Title:

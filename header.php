@@ -37,10 +37,10 @@ function display_login_form(){
     '
 	<form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
 	<span>
-    username:<input type="text" name="log_username"></text>
-	password:<input type="password" name="log_password"></text>
+    username:<input type="text" name="log_username">
+	password:<input type="password" name="log_password">
         </span>
-		<input type="hidden" name="prev_page_validation" value="siadoNMWFI193468bubw"])>
+		<input type="hidden" name="prev_page_validation" value="siadoNMWFI193468bubw">
 			<input class="form_button" type="submit" name="choice" value="LOGIN">
     </form>
 	';

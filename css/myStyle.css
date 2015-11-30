@@ -17,6 +17,10 @@ body *{
    display: inline-block;
 }
 
+body script{
+   display: none;
+}
+
 /*header span {
     display: inline-block;
 }*/

@@ -24,11 +24,11 @@ if (!validate_user()) {
 	echo $_SESSION['login_user'];
 	echo $owner['owner'];
 	if($_SESSION['login_user']==$owner['owner']) {
-	//delete event
-	$stmt = $dbh->prepare("DELETE FROM events
-						WHERE id_event=?");
-	$stmt->execute(array($event_id));
-	echo "<script type='text/javascript'>alert('Event deleted.');window.location.href = 'main.php';</script>";
+		//delete event
+		$stmt = $dbh->prepare("DELETE FROM events
+							WHERE id_event=?");
+		$stmt->execute(array($event_id));
+		echo "<script type='text/javascript'>alert('Event deleted.');window.location.href = 'main.php';</script>";
 	}
 	else {
 		header('Location: main.php');
