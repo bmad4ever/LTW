@@ -118,14 +118,14 @@ include("getInputSafe.php");
 
 				if($registered['count']==0) {
 					echo '<form method="post" action="register.php">
-						<input type="hidden" name="event_id"" value="'.$event_info[0]['id_event'].'">
+						<input type="hidden" name="event_id" value="'.$event_info[0]['id_event'].'">
 						<input type="hidden" name="user_id" value="'.$_SESSION['login_user'].'">
 						<input type="submit" value="Going">
 						</form>';
 				}
 				else {
 					echo '<form method="post" action="register_delete.php">
-						<input type="hidden" name="event_id"" value="'.$event_info[0]['id_event'].'">
+						<input type="hidden" name="event_id" value="'.$event_info[0]['id_event'].'">
 						<input type="hidden" name="user_id" value="'.$_SESSION['login_user'].'">
 						<input type="submit" value="Not going">
 						</form>';
@@ -147,11 +147,18 @@ include("getInputSafe.php");
 			<?php } ?>
 		</section>
 		
+		<?php
+			if($_SESSION['login_user']==$event_info[0]['owner']) {
+				echo '<section id="owner_options">
+						<a href="edit_event.php?id='.$event_info[0]['id_event'].'">Edit</a> |
+						<a href="delete_event.php?id='.$event_info[0]['id_event'].'">Delete</a>
+						</section>';
+			}
+		?>
+		
 	</aside>
 	
 	<footer id="image_slider"></footer>
-
-
  
   </body>
 
