@@ -23,8 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") 	{
 	||$postusername===""
 	||$postpass===null
 	||$postpass===""
-	||$postemail===null
-	||$postemail==="")
 	{
 	 header("location: main.php?errorMsg=".urlencode("Field is Empty!"));
 	 return '';	
@@ -103,6 +101,7 @@ function number_of_users_with_email()
 			$stmt->execute(array($postusername, md5($postpass),$postemail,0,$code));
 		
 			header("location: main.php");
+			return '';
 		}
 		else {
 			header("location: main.php?errorMsg=".urlencode("Email already in use"));

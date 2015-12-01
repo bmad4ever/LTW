@@ -94,5 +94,4 @@ function echo_get($var)
 	if(isset($_GET[$var])) echo $_GET[$var];
 	else echo $var;
 }
-
 ?>

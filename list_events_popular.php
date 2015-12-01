@@ -30,7 +30,7 @@ function popular_events() {
 ?>
 	
 	<div id="list_events">
-		<table>
+		<table><th colspan="2">Popular Events</th>
 		<?php foreach($events as $row){?>
 			<tr>
 				<td><a href="event.php?id=<?=$row['id_event']?>"><?php echo "<img class='list_img_thumbs' src='images/thumbs_small/".md5($row['image_id']).".".$row['extension']."'>"?></a></td>
