@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") 	{
 	||$postusername===null
 	||$postusername===""
 	||$postpass===null
-	||$postpass===""
+	||$postpass==="")
 	{
 	 header("location: main.php?errorMsg=".urlencode("Field is Empty!"));
 	 return '';	
