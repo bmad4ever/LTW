@@ -12,16 +12,13 @@ body {
     align-content: center;
     text-align: center;
      margin-top: 40vh;
-	 font-family: 'Playfair Display';
+	font-family: 'Playfair Display';
 }
 
 body *{
    display: inline-block;
 }
 
-body script{
-   display: none;
-}
 
 /*header span {
     display: inline-block;
@@ -137,10 +134,10 @@ section#pseudo_chat *{
 aside#event {
     display:block;
     float: left;
-    margin: 0 1.5%;
+    margin: 0 0 0 0;
     width: 20vw;
     position:fixed;
-    transform:translate(0,-20vh);
+    transform:translate(0,-18vh);
     font:1em;
 }
 
@@ -150,6 +147,9 @@ aside#event section{
 
 aside#event p{
     display:block;
+/*white-space: nowrap;*/
+  overflow: hidden;
+    text-overflow: ellipsis
 }
 
 #comments {
@@ -191,8 +191,8 @@ aside#event p{
   /*top: 50vh;*/
   left: 50vw;
   margin-top: 25vh;
-  max-height:40vh;
-  max-width:50vw;
+  max-height:38vh;
+  max-width:40vw;
   transform: translate(-50%, -100%);
 }
 
@@ -373,4 +373,8 @@ display: table-cell;
     padding: 0;
     width:40%;
     height:40%;
+}
+
+script{
+   display: none;
 }
