@@ -25,16 +25,16 @@ function activateUser($id) {
 	global $code;
 	$db = new PDO('sqlite:database.db');
 	
-	$stmt = $db->prepare('SELECT activate FROM users WHERE id=?');
+	$stmt = $db->prepare('SELECT active FROM users WHERE id=?');
 	$stmt->execute(array($id)); 
     $result=$stmt->fetchAll();
 	
-	if($result[0]['activate']==1) {
+	if($result[0]['active']==1) {
 		return 1;
 	}
 	else {
 		$stmt = $db->prepare("UPDATE users
-						SET activate=1
+						SET active=1
 						WHERE id=?");
 		$stmt->execute(array($id)); 
 		$result=$stmt->fetchAll();

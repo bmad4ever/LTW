@@ -100,11 +100,33 @@ function number_of_users_with_email()
 			$stmt = $dbh->prepare("INSERT INTO users VALUES(NULL, ?,?,?,?,?)");
 			$stmt->execute(array($postusername, md5($postpass),$postemail,0,$code));
 			
-			$msg = "Olá, ".$postusername.", sê bem-vindo ao EventBook!\n
-			Para completares o teu registo, basta clicares no seguinte <a href='activation.php?code=".$code."'>endereço</a>.";
+			
+			$link="http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI'])."/activate.php?code=$code";
+			$subject = "Account Activation";
+			$msg = "Hello, $postusername. Welcome to EventBook!\n
+			To complete your registration, you can simple click <a href='$link'>this link</a>. to activate your account.\n
+			Hope you enjoy your stay!";
+			$from = "up201502862@fe.up.pt";
+			$headers = "From: $from \r\n";
+			$headers .= "Reply-To: $from \r\n";
+			$headers .= "Return-Path: $from\r\n";
+			$headers .= "X-Mailer: PHP \r\n";
+			$headers .= "MIME-Version: 1.0\r\n";
+            $headers .= "Content-Type: text/html; charset=utf-8\r\n";
 		
-			mail($postemail,"Ativação de Conta",$msg,"From: EventBook <no-reply@eventbook.com");
-		
+			mail($postemail,$subject,$msg,$headers);
+			
+			
+
+			/*if(mail($postemail,"Ativação de Conta",$msg,"From: EventBook <no-reply@eventbook.com")) {
+				echo "<script type='text/javascript'>alert('ENVIADO.');window.location.href = 'main.php';</script>";
+			}
+			else {
+				echo "<script type='text/javascript'>alert('NÃO ENVIADO');window.location.href = 'main.php';</script>";
+			}*/
+
+
+			
 			header("location: main.php");
 			return '';
 		}
