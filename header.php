@@ -1,6 +1,17 @@
 <?php
+
 /*note: a login user should have the id stored in 'login_user' and the username in 'login_username'*/
 session_start();
+
+/*adapted from http://stackoverflow.com/questions/520237/how-do-i-expire-a-php-session-after-30-minutes */
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 120)) {
+    // last request was more than 2 minutes ago
+    session_unset();     // unset $_SESSION variable for the run-time 
+    session_destroy();   // destroy session data in storage
+	session_start(); //create new session, needed to use on login source confirmation
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
 
   $dbh = new PDO('sqlite:database.db');
   $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -33,6 +44,7 @@ echo '<ul id="loggedin_options">
 }
 
 function display_login_form(){
+	$_SESSION['login_token'] = md5(uniqid(mt_rand(), true));
 	echo
     '
 	<form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
@@ -40,7 +52,7 @@ function display_login_form(){
     username:<input type="text" name="log_username">
 	password:<input type="password" name="log_password">
         </span>
-		<input type="hidden" name="prev_page_validation" value="siadoNMWFI193468bubw">
+		<input type="hidden" name="login_token" value="'.$_SESSION['login_token'].'">
 			<input class="form_button" type="submit" name="choice" value="LOGIN">
     </form>
 	';
@@ -94,4 +106,5 @@ function echo_get($var)
 	if(isset($_GET[$var])) echo $_GET[$var];
 	else echo $var;
 }
+
 ?>

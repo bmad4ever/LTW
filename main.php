@@ -22,12 +22,12 @@ function main_display()
 	
 	switch($status)
 	{
-		case PHP_SESSION_DISABLED:display_login_form(); break;
+		case PHP_SESSION_DISABLED:/*display_login_form();*/ break;
 		case PHP_SESSION_ACTIVE:
 			if(checkLogged()) ;
 			else {session_destroy(); display_register_form();}
 			break;
-		case PHP_SESSION_NONE:display_login_form();  break;
+		case PHP_SESSION_NONE:/*display_login_form();*/  break;
 			default; break;
 	}
 }
