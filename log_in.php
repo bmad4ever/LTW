@@ -99,6 +99,11 @@ function number_of_users_with_email()
 		
 			$stmt = $dbh->prepare("INSERT INTO users VALUES(NULL, ?,?,?,?,?)");
 			$stmt->execute(array($postusername, md5($postpass),$postemail,0,$code));
+			
+			$msg = "Olá, ".$postusername.", sê bem-vindo ao EventBook!\n
+			Para completares o teu registo, basta clicares no seguinte <a href='activation.php?code=".$code."'>endereço</a>.";
+		
+			mail($postemail,"Ativação de Conta",$msg,"From: EventBook <no-reply@eventbook.com");
 		
 			header("location: main.php");
 			return '';
