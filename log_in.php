@@ -115,29 +115,20 @@ function number_of_users_with_email()
             $headers .= "Content-Type: text/html; charset=utf-8\r\n";
 		
 			mail($postemail,$subject,$msg,$headers);
-			
-			
-
-			/*if(mail($postemail,"Ativação de Conta",$msg,"From: EventBook <no-reply@eventbook.com")) {
-				echo "<script type='text/javascript'>alert('ENVIADO.');window.location.href = 'main.php';</script>";
-			}
-			else {
-				echo "<script type='text/javascript'>alert('NÃO ENVIADO');window.location.href = 'main.php';</script>";
-			}*/
 
 
 			
-			header("location: main.php");
+			echo "<script type='text/javascript'>alert('Account created. Check your email for verification link.');window.location.href = 'main.php';</script>";
 			return '';
 		}
 		else {
-			header("location: main.php?errorMsg=".urlencode("Email already in use"));
+			echo "<script type='text/javascript'>alert('Email already in use. Please, choose another.');window.location.href = 'main.php';</script>";
 			return '';
 		}
 		
 	}
 	else {
-		header("location: main.php?errorMsg=".urlencode("Username already in use"));
+		echo "<script type='text/javascript'>alert('Username already in use. Please, choose another.');window.location.href = 'main.php';</script>";
 		return '';
 	}
 }
@@ -160,11 +151,14 @@ return;
 		$aux = $result[0]['id'];
         $_SESSION['login_user'] = $aux;// $postusername;
 		$_SESSION['login_username'] = $postusername;
+		
+		echo "<script type='text/javascript'>alert('Login successful');window.location.href = 'main.php';</script>";
+		
 		//print for debug purposes, can be removed later
 		if(validate_user())	
 			header('Location: ' . str_replace( "errorMsg","pEM",$_SERVER['HTTP_REFERER']));//header("location: main.php?logok=$aux");
     } else {
-        header("location: main.php?errorMsg=".urlencode("Your username or password is Invalid"));
+        echo "<script type='text/javascript'>alert('Username or password is not correct.');window.location.href = 'main.php';</script>";
 		//???session_destroy();???
     }
 
