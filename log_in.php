@@ -14,11 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") 	{
 	
 	$postusername = htmlentities($_POST['log_username']);
 	$postpass = htmlentities($_POST['log_password']);
-	$postemail = htmlentities($_POST['log_email']);
+	//$postemail = htmlentities($_POST['log_email']);
 	
 	if( !isset($postusername)
 	||!isset($postpass)
-	||!isset($postemail)
+	//||!isset($postemail)
 	||$postusername===null
 	||$postusername===""
 	||$postpass===null
@@ -140,25 +140,35 @@ else if($_POST['choice']!="LOGIN")
 
 // ----------------------- LOGIN CASE
 
-if($_POST['choice']=="LOGIN" && $_POST['prev_page_validation'] !== "siadoNMWFI193468bubw" ){
+if($_POST['choice']=="LOGIN" && (!isset($_POST['login_token']) || $_POST['login_token'] !== $_SESSION['login_token']) ){
 	header("location: main.php?errorMsg=".urlencode("Tried to Login from unknown source."));
 return;
 }
 
     // If result matched $myusername and $mypassword, table row must be 1 row
-    if (number_of_usersnamed_with_pass() == 1) {
+    if (number_of_usersnamed_with_pass() >= 1) {
         //session_register("myusername");
 		$aux = $result[0]['id'];
         $_SESSION['login_user'] = $aux;// $postusername;
 		$_SESSION['login_username'] = $postusername;
 		
-		echo "<script type='text/javascript'>alert('Login successful');window.location.href = 'main.php';</script>";
-		
 		//print for debug purposes, can be removed later
+		
 		if(validate_user())	
+		{
+			echo "<script type='text/javascript'>alert('Login successful');window.location.href = 'main.php';</script>";
 			header('Location: ' . str_replace( "errorMsg","pEM",$_SERVER['HTTP_REFERER']));//header("location: main.php?logok=$aux");
+		}
+		else 
+		{
+			echo "<script type='text/javascript'>alert('".$login_validation_result_msg."');</script>";
+			session_destroy();
+			echo "<script type='text/javascript'>window.location.href = 'main.php';</script>";
+		}
     } else {
-        echo "<script type='text/javascript'>alert('Username or password is not correct.');window.location.href = 'main.php';</script>";
+        echo "<script type='text/javascript'>alert('Incorrect Username or Password.');</script>";
+		session_destroy();
+		echo "<script type='text/javascript'>window.location.href = 'main.php';</script>";
 		//???session_destroy();???
     }
 

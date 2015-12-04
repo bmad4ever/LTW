@@ -8,6 +8,8 @@ if(!checkLogged())
 	return '';
 }
 
+$_SESSION['create_event_token'] = md5(uniqid(mt_rand(), true));
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -50,7 +52,7 @@ if(!checkLogged())
           		<input type="checkbox" name="public" value="ok" checked>
         </label>
 		
-		<input type="hidden" name="check" value="<?php echo md5(date("Y-m-d").$_SESSION['login_user']);?>" />
+		<input type="hidden" name="create_event_token" value="<?= $_SESSION['create_event_token'] ?>" />
 		<br> <input type="submit" value="Upload">
       </form>
 	  

@@ -4,11 +4,12 @@
 session_start();
 
 /*adapted from http://stackoverflow.com/questions/520237/how-do-i-expire-a-php-session-after-30-minutes */
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 120)) {
+if (checkLogged() && isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 120)) {
     // last request was more than 2 minutes ago
     session_unset();     // unset $_SESSION variable for the run-time 
     session_destroy();   // destroy session data in storage
-	session_start(); //create new session, needed to use on login source confirmation
+	header("Location: main.php");
+	return '';
 }
 $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
@@ -76,19 +77,41 @@ function login_header()
 	echo '</nav><br>';
 }
 
+$login_validation_result_msg="";
 function validate_user(){
-  	
+	global $login_validation_result_msg;
+	
+	$login_validation_result_msg="MMMMM";
+	
 	if(!(session_status()===PHP_SESSION_ACTIVE)) return false;
-	if( !checkLogged() ) return false;
+	if( !checkLogged() )
+	{
+		$login_validation_result_msg="Username or Password is not correct.";
+		return false;
+	}
 	
 	$db = new PDO('sqlite:database.db');
-	$stmt = $db->prepare('SELECT username FROM users WHERE id = ?');
+	$stmt = $db->prepare('SELECT username,active FROM users WHERE id = ?');
 	$stmt->execute(array($_SESSION['login_user'])); 
     $result=$stmt->fetchAll();
 	
-	if (count($result)!=1 || 
-	$result[0]['username'] != $_SESSION['login_username']
-	) return false;
+	if(	count($result)<1 || $result[0]['username'] != $_SESSION['login_username']) 
+	{
+		$login_validation_result_msg="Invalid User.";
+		return false;
+	}
+	
+	if (count($result)!=1) 
+	{
+		$login_validation_result_msg="A problem occurred. Your account is blocked, please contact us.";
+		return false;
+	}
+	
+	if ($result[0]['active'] != 1)
+	{    
+		$login_validation_result_msg="This account has not been validated";
+		return false;
+	}
 	
 	return true;
 }

@@ -8,16 +8,22 @@
 		$page=1;
 	}
 
-
+	$search_event_name='';
+	if (isset($_GET['search_event_by_name']))
+	{
+		$search_event_name=$_GET['search_event_by_name'];
+	}
+	$search_event_name = "%".$search_event_name."%";
+	
 	//get number of pages
-	$stmt = $dbh->prepare("SELECT COUNT(*) as count from events");
-	$stmt->execute();
+	$stmt = $dbh->prepare("SELECT COUNT(*) as count from events WHERE title LIKE ?");
+	$stmt->execute(array($search_event_name));
 	$pages = $stmt->fetch();
 	$npages= $pages['count']/5;
 	$npages = ceil($npages); //ceil rounds float up
 	
   //get event
-  $stmt = $dbh->prepare("SELECT * from events 
+  $stmt = $dbh->prepare("SELECT * from (SELECT * FROM events WHERE title LIKE ?) as events 
    INNER JOIN users
    ON users.id=events.owner
    INNER JOIN eventTypes
@@ -30,7 +36,7 @@
    ON image_event_id = events.id_event 
    ORDER BY event_date
    LIMIT 5 OFFSET ?");
-  $stmt->execute(array(5 * ($page - 1)));
+  $stmt->execute(array($search_event_name,5 * ($page - 1)));
   $events = $stmt->fetchAll();
   
 ?>
@@ -48,7 +54,36 @@
     <header>
 		<?php login_header(); ?>
       <h1>Public events</h1>
+	  
     </header>
+	
+	<div>
+	
+	<table>
+	<tr> <td>
+	<form action="list_events.php" method="get">
+	<span>
+    Search for partial or full name of the Event Title<br>
+	<input type="text" name="search_event_by_name">
+        </span>
+			<input class="form_button" type="submit" value="SEARCH">
+    </form>
+	</td> </tr>
+	
+	<tr> <td>
+	<!--div id="number_pages"-->
+	Pages: <?php 
+			for ($x = 1; $x <= $npages; $x++) {
+				echo '<a href="list_events.php?page='.$x."search_event_by_name=".$search_event_name.'">'.$x.'</a> ';
+			} 
+		?>
+	<!--/div-->
+	</td></tr>
+	
+	</table>
+	</div>
+	
+	<br>
 	
 	<div id="list_events">
 		<table>
@@ -63,13 +98,7 @@
 		<?php } ?>
 		</table>
 	</div>
-	<div id="number_pages">
-		<?php 
-			for ($x = 1; $x <= $npages; $x++) {
-				echo '<a href="list_events.php?page='.$x.'">'.$x.'</a> ';
-			} 
-		?>
-	</div>
+	
 	
   </body>
 

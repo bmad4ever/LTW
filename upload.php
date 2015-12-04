@@ -8,7 +8,7 @@
  //so that the user doesnt have to input everything again
  //$get_for_failed;
  
- if(/*$_POST['check']!=md5(date("Y-m-d").$_SESSION['log_user']) ||*/ !checkLogged() || !validate_user())
+ if( $_POST['create_event_token'] !== $_SESSION['create_event_token'] || !checkLogged() || !validate_user())
 	{
 		session_destroy();
         header("Location: main.php?errorMsg=".urlencode("Illegal Upload Event try!"));
@@ -162,6 +162,7 @@ $current_datetime = date("Y-m-d H:i:s");
 		case IMAGETYPE_BMP: imagejpeg($medium, $mediumFileName); break;
 		default; break;
 	}
-  
-  header("Location: create_event.php");  
+  //echo "'event.php?id=\"".urlencode($event_id)."\"'"; return '';
+  echo "<script type='text/javascript'>alert('Event created!');window.location.href = 'event.php?id=".urlencode($event_id)."';</script>";
+  //header("Location: create_event.php");  
 ?>

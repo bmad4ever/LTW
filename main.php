@@ -1,6 +1,7 @@
 <?php 
 include('header.php');
 include('list_events_popular.php');
+include('print_events.php');
 
 function display_register_form(){
 	
@@ -25,7 +26,7 @@ function main_display()
 		case PHP_SESSION_DISABLED:/*display_login_form();*/ break;
 		case PHP_SESSION_ACTIVE:
 			if(checkLogged()) ;
-			else {session_destroy(); display_register_form();}
+			else {/*session_destroy();*/ display_register_form();}
 			break;
 		case PHP_SESSION_NONE:/*display_login_form();*/  break;
 			default; break;
@@ -54,7 +55,7 @@ function main_display()
 	</header>
 	
     <br>
-		<?php main_display(); popular_events();?>
+		<?php main_display(); print_events(popular_events(),true,"Popular Events");?>
     <br>
     <br>
     <a href="list_events.php">Check all public events</a>
