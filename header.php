@@ -45,6 +45,10 @@ echo '<ul id="loggedin_options">
 }
 
 function display_login_form(){
+	echo '<ul> 
+<li> <a href="main.php">Home</a> </li>
+	</ul>';
+	
 	$_SESSION['login_token'] = md5(uniqid(mt_rand(), true));
 	echo
     '
@@ -61,6 +65,8 @@ function display_login_form(){
 
 function login_header()
 {
+	
+	
 	echo '<nav>';
 	
 	if(session_status()===PHP_SESSION_ACTIVE && checkLogged())
@@ -74,7 +80,11 @@ function login_header()
 		echo '</span>';
 	}
 	
-	echo '</nav><br>';
+	echo '</nav><br>
+		<noscript>
+		This page needs JavaScript activated to fully work
+		</noscript>
+	<br>';
 }
 
 $login_validation_result_msg="";
