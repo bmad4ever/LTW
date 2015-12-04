@@ -53,5 +53,13 @@ FOREIGN KEY (event_id) REFERENCES events(id_event) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE invitations(
+user_id INTEGER,
+event_id INTEGER,
+FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY (user_id) REFERENCES events(id_events) ON DELETE CASCADE
+PRIMARY KEY (user_id, event_id)
+)
+
 INSERT INTO eventTypes(name)
 VALUES ('Concerto'),('Festa'),('Casamento'),('Batismo'),('Almoço/Jantar'),('Palestra'),('Workshop'),('Reunião');

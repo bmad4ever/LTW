@@ -153,7 +153,7 @@ include("social_media.php");
 				echo '<br>
 						<a href="edit_event.php?id='.$event_info[0]['id_event'].'" class="button">Edit</a>
 						<a href="delete_event.php?id='.$event_info[0]['id_event'].'" class="button">Delete</a>
-						<a href="invite_to_event.php?id='.$event_info[0]['id_event'].'" class="button">Invite</a>
+						<a href="event_invite.php?id='.$event_info[0]['id_event'].'" class="button">Invite</a>
 						';
 			}
 		?>

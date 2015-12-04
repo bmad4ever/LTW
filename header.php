@@ -60,7 +60,8 @@ function display_login_form(){
 		<input type="hidden" name="login_token" value="'.$_SESSION['login_token'].'">
 		<input type="hidden" name="choice" value="LOGIN">
 			<input class="form_button" type="submit" value="LOGIN">
-    </form>';
+    </form>
+	<input type="submit" class="form_button" id="registerbt" value="REGISTER">';
 }
 
 function login_header()
