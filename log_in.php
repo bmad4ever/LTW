@@ -14,7 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") 	{
 	
 	$postusername = htmlentities($_POST['log_username']);
 	$postpass = htmlentities($_POST['log_password']);
-	//$postemail = htmlentities($_POST['log_email']);
+	
+	if(isset($_POST['log_email'])) {
+		$postemail = htmlentities($_POST['log_email']);
+	}
 	
 	if( !isset($postusername)
 	||!isset($postpass)
@@ -32,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") 	{
 
 function number_of_usersnamed()
 {
-	global $postusername;
 	global $result;
+	global $postusername;
 	$db = new PDO('sqlite:database.db');
 	$stmt = $db->prepare('SELECT id FROM users WHERE username = ?');
 	$stmt->execute(array($postusername)); 

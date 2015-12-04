@@ -81,7 +81,7 @@ if(!checkLogged())
         </label>
 		
 		<input type="hidden" name="check" value="<?php echo md5(date("Y-m-d").$_SESSION['login_user']);?>" />
-		<input type="hidden" name="id" value="<?=$event_info[0]['id']?>" />
+		<input type="hidden" name="id" value="<?=$event_info[0]['id_event']?>" />
 		<br> <input type="submit" value="Upload">
       </form>
 	  

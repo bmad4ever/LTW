@@ -154,21 +154,24 @@ include("social_media.php");
 			else {
 				echo '<b>Create an account (or login) to register yourself!</b>';
 			}
-			?>
 			
 			
-		</section>
-		
-		<?php
+			
 			if($valid_user && $_SESSION['login_user']==$event_info[0]['owner']) {
-				echo '<section id="owner_options">
-						<a href="edit_event.php?id='.$event_info[0]['id_event'].'">Edit</a> |
-						<a href="delete_event.php?id='.$event_info[0]['id_event'].'">Delete</a>
-						</section>';
+				echo '<br>
+						<a href="edit_event.php?id='.$event_info[0]['id_event'].'" class="button">Edit</a>
+						<a href="delete_event.php?id='.$event_info[0]['id_event'].'" class="button">Delete</a>
+						<a href="invite_to_event.php?id='.$event_info[0]['id_event'].'" class="button">Invite</a>
+						';
 			}
 		?>
+			
+			</section>
+		
+		
 		
 	</aside>
+	
 	
 	<footer id="image_slider"></footer>
  

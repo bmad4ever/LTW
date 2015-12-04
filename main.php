@@ -6,14 +6,14 @@ include('print_events.php');
 function display_register_form(){
 	
 	echo
-    '<form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
+    '<div id="register"><form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
 
         <br>Username<br><input type="text" name="log_username">
         <br>Password<br><input type="password" name="log_password">
 		<br>Confirm password<br><input type="password" name="log_password_conf">
 		<br>Email address<br><input type="email" name="log_email">
         <br><input class="form_button" type="submit" name="choice" value="REGISTER">
-    </form>';
+    </form></div>';
 
 }
 
@@ -44,7 +44,9 @@ function main_display()
 <meta charset = "utf-8">
 <link rel="stylesheet" href="./css/myStyle.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="main.js"></script>
+
 </header>
 
 <body>
