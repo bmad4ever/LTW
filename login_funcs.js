@@ -28,15 +28,7 @@ function send_comment()
 function comment_sent(data)
 {
 	if(data=="OK") //if comment was upload successfully update comments
-			$.getJSON("retrievecomments.php", {'last_id': last_comment_id/*,'event_id':event_id*/}, function(comments){
-		if(comments!=null && comments.length>0){
-		last_comment_id=comments[0]['id'];
-		//$('#comments').after(last_comment_id);
-		comments.reverse();
-		comments.forEach(display_new_comment);
-		}
-	}
-	);
+	load_comments(5);
 	else ;//invalid upload
 	
 }

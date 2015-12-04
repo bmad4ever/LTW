@@ -2,8 +2,7 @@
 include("header.php");
 include("getInputSafe.php");
 
-	$valid_user = validate_user();
-
+	//$valid_user = validate_user();
 	
 if (!validate_user()) {
 	header("Location: main.php?errorMsg=".urlencode("Register Event User Not Logged In!"));
@@ -24,7 +23,7 @@ if (!validate_user()) {
 	$stmt = $dbh->prepare("DELETE FROM registers 
 						WHERE user_id=? AND event_id=?");
 	$stmt->execute(array($user_id,$event_id));
-	header('Location: event.php?id='.$event_id.'');
+	header('Location: event.php?id='.$event_id);
 }
 
 

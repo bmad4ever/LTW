@@ -22,7 +22,8 @@ include("getInputSafe.php");
     $stmt->execute(array($_SESSION['login_user'], $_SESSION['display_event_id'], $current_datetime , $com) );
 	
 	echo json_encode("OK"); 
-	}	
+	}
+	else echo json_encode("EMPTYCOMMENT");  
   }
-  echo json_encode("INVALID");  
+  else echo json_encode("INVALID");  
 ?>

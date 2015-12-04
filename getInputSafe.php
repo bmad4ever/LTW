@@ -12,7 +12,7 @@
 
 	
 //done from scratch (may not be 100% correct)
-$mail_match = "\w+(?<!@)@[a-zA-Z.]{0,}[a-zA-Z.]";
+$mail_match = "[^@~+*\\/\\\\\-;:<>&|#\"'!?´`]+(?<!@)@[a-zA-Z.]{0,}[a-zA-Z.]";
 $title_match="([\w \<\>\/])+";//title
 $number_match="[0-9]+";//number
 	

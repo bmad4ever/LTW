@@ -70,15 +70,9 @@ include("social_media.php");
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	
 	<script type="text/javascript">
-	//safe against XSS!!! id already checked with preg_match at header
     <?php 
 		$_SESSION['display_event_id']=$id;//echo ("var event_id=".json_encode($id).";"); 
-		echo ("var last_comment_id=0;");//.json_encode($last_comment_id).";");
-		//variables only created if user is logged!
-		//if($valid_user){
-		//echo ("var userid=".json_encode($_SESSION['login_user']).";");
-		//echo ("var username=".json_encode($_SESSION['login_username']).";");	
-		//}
+		//echo ("var last_comment_id=0;");//.json_encode($last_comment_id).";");
 	?>
 	</script>
 	<?php if($valid_user) echo "<script type=\"text/javascript\" src=\"login_funcs.js\"></script>"; ?>
@@ -111,9 +105,9 @@ include("social_media.php");
 	<div id="comments" > </div>
 	
 	<div id="registered_users">
-		<p><strong>Registered Users</strong></p>
+		<!--p><strong>Registered Users</strong></p-->
 		<?php foreach($registredUsers as $row) { ?>
-			- <?php echo $row['username']; ?><br>
+		<?php echo $row['username']; ?><br>
 			
 		<?php } ?>
 	</div>

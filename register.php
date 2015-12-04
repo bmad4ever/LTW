@@ -2,9 +2,8 @@
 include("header.php");
 include("getInputSafe.php");
 
-	$valid_user = validate_user();
+	//$valid_user = validate_user();
 
-	
 if (!validate_user()) {
 	header("Location: main.php?errorMsg=".urlencode("Register Event User Not Logged In!"));
 	

@@ -1,4 +1,4 @@
-//last_comment_id must be defined outside this script
+var last_comment_id=0;
 
 $().ready(loadDocument);
 
@@ -118,7 +118,8 @@ img_slider_created=false;
  image_2_show=0;
  
 //general functionalities 
-refresh();
+load_images();
+load_comments(100);
 window.setInterval(refresh, 5000);
 
 //login functionalities
@@ -157,15 +158,7 @@ function refresh() {
 	//update images
 	load_images();
 	//update comments
-	$.getJSON("retrievecomments.php", {'last_id': last_comment_id/*,'event_id':event_id*/}, function(comments){
-		if(comments!=null && comments.length>0){
-		last_comment_id=comments[0]['id'];
-		//$('#comments').after(last_comment_id);
-		comments.reverse();
-		comments.forEach(display_new_comment);
-		}
-	}
-	);
+	load_comments(10);
 }
 
 function display_new_comment(com){
@@ -175,3 +168,12 @@ $('#comments').prepend(newcomment);
 
 }
 
+function load_comments(number){
+		$.getJSON("retrievecomments.php", {'last_id': last_comment_id, 'limit':number}, function(comments){
+		if(comments!=null && comments.length>0){
+		last_comment_id=comments[comments.length-1]['id'];
+		comments.forEach(display_new_comment);
+		}
+	}
+	);
+}
