@@ -67,14 +67,12 @@ include("social_media.php");
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/myStyle.css"> 
 	
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	
-	<script type="text/javascript">
     <?php 
+	meta_includes();
 		$_SESSION['display_event_id']=$id;//echo ("var event_id=".json_encode($id).";"); 
 		//echo ("var last_comment_id=0;");//.json_encode($last_comment_id).";");
 	?>
-	</script>
+	
 	<?php if($valid_user) echo "<script type=\"text/javascript\" src=\"login_funcs.js\"></script>"; ?>
 	<script type="text/javascript" src="event.js"></script>
 	
@@ -141,7 +139,7 @@ include("social_media.php");
 					echo '<form method="post" action="register_delete.php">
 						<input type="hidden" name="event_id" value="'.$event_info[0]['id_event'].'">
 						<input type="hidden" name="user_id" value="'.$_SESSION['login_user'].'">
-						<input type="submit" value="Not going">
+						<input type="submit" value="Not going" >
 						</form>';
 				}
 			}

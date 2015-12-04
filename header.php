@@ -129,4 +129,14 @@ function echo_get($var)
 	else echo $var;
 }
 
+function meta_includes()
+{
+
+echo '<link rel="shortcut icon" href="css/icon.ico">';
+echo '<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>';
+echo '<script type="text/javascript" src="onload.js"></script>';
+
+
+}
+
 ?>

@@ -1,6 +1,6 @@
 var last_comment_id=0;
 
-$().ready(loadDocument);
+//$().ready(loadDocument);
 
 //images related variables
 //var displayed_image;
@@ -112,7 +112,17 @@ function update_highres_src()
 }
 
 // -- -- -- -- -- LOAD DOC -- -- -- -- --
-function loadDocument() {
+addLoadEvent(function() {
+	
+	/*$("form").submit(function() {
+    $(this).submit(function() {
+        return false;
+    });
+    $(this).find("input[type='submit']").attr('disabled', 'disabled').val('submiting'); 
+	return true; 
+});*/
+	
+	
 	//start variables
 img_slider_created=false;
  image_2_show=0;
@@ -131,6 +141,7 @@ $('#show_regs_or_coms_button').click(switch_show_list);
 //reg_list_offset = cumulativeOffset(document.getElementById("registered_users"));
 //document.getElementById("registered_users").addEventListener("mousedown", mm);
 }
+);
 
 var show_comments;
 function switch_show_list(){

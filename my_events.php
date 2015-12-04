@@ -10,6 +10,7 @@ include('list_registered_events.php');
     <title>Edit event</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/myStyle.css"> 
+	<?php meta_includes(); ?>
   </head>
   
   <body>

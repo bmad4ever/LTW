@@ -46,7 +46,8 @@
   <head>
     <title>Public events</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="css/myStyle.css"> 
+    <link rel="stylesheet" href="css/myStyle.css">
+<?php meta_includes(); ?>	
   </head>
   <body>
 
