@@ -54,7 +54,8 @@ function display_login_form(){
 	password:<input type="password" name="log_password">
         </span>
 		<input type="hidden" name="login_token" value="'.$_SESSION['login_token'].'">
-			<input class="form_button" type="submit" name="choice" value="LOGIN">
+		<input type="hidden" name="choice" value="LOGIN">
+			<input class="form_button" type="submit" value="LOGIN">
     </form>';
 }
 
