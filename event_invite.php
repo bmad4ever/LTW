@@ -19,11 +19,8 @@ if(!checkLogged())
   }
   
   //get userlist
-  $stmt = $dbh->prepare("SELECT * from users
-   INNER JOIN invitations
-   ON users.id=invitations.user_id
-   WHERE invitations.id_event <> ?");
-  $stmt->execute(array($id));
+  $stmt = $dbh->prepare("SELECT * from users");
+  $stmt->execute(array());
   $users = $stmt->fetchAll();
   
   //get event
@@ -48,21 +45,21 @@ if(!checkLogged())
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>Invite to <?=event_info[0]['title']?></title>
+    <title>Invite to <?=$event_info[0]['title']?></title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/myStyle.css"> 
   </head>
   <body>
     <header>
 	<?php login_header(); ?>
-      <h1>Invite to '<?=event_info[0]['title']?>'</h1>
+      <h1>Invite to '<?=$event_info[0]['title']?>'</h1>
     </header>
 	
     <div id="user_list">
       
 	  <form action="send_invites.php" method="post" enctype="multipart/form-data">
 		<?php foreach($users as $row){?>
-			<input value="<?=row['id']?>" name="invite[]" type="checkbox"/> <?=row['username']?> <br>
+			<input value="<?=$row['id']?>" name="invite[]" type="checkbox"/> <?=$row['username']?> <br>
 		<?php } ?>
 		
 		<input type="hidden" name="id" value="<?=$event_info[0]['id_event']?>" />
