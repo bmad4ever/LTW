@@ -42,11 +42,10 @@ function main_display()
 
 <header>
 <title> PROJECT LTW 2015/2016 </title>
-<meta charset = "utf-8
+<meta charset = "utf-8">
 <link rel="stylesheet" href="./css/myStyle.css">
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/start/jquery-ui.css">
 <?php meta_includes(); ?>
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="main.js"></script>
 </header>
@@ -88,5 +87,6 @@ function main_display()
 		$( "#register" ).dialog();
 		$( "#register" ).show();
 	});
+	</script>
 
 </html>
