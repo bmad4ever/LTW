@@ -75,6 +75,7 @@ nav h2 {
 nav ul {
     overflow: auto;
     list-style-type: none;
+overflow: visible
 }
 
     nav ul li {
@@ -99,6 +100,7 @@ nav ul {
             -o-transition: all 0.5s ease;
             -ms-transition: all 0.5s ease;
             transition: all 0.5s ease;
+	    overflow: visible
         }
 
             nav ul li a:hover {
@@ -241,6 +243,8 @@ aside#event p{
     box-shadow: 0 1px 0 #aaa, 0 2px 0 #bbb, 0 3px 0 #ddd;
     margin-top: 0.4em;
     padding: 0.1em;
+  overflow: hidden;
+    text-overflow: ellipsis
 }
     
     .comment h2 {
