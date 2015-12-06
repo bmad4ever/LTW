@@ -125,7 +125,7 @@ function validate_user(){
 	$stmt->execute(array($_SESSION['login_user'])); 
     $result=$stmt->fetchAll();
 	
-	if(	count($result)<1 || $result[0]['username'] != $_SESSION['login_username']) 
+	if(	count($result)<1 || strtolower($result[0]['username']) != strtolower($_SESSION['login_username'])) 
 	{
 		$login_validation_result_msg="Invalid User.";
 		return false;
