@@ -35,7 +35,7 @@ function display_logged_form(){
 echo '<ul id="loggedin_options"> 
 <li> <a href="main.php">Home</a> </li>
 <li> <a href="my_events.php">My Events</a> </li>
-<li> <a href="inbox.php">My Events</a> </li>
+<li> <a href="inbox.php">Inbox</a> </li>
 <li> <a href="create_event.php">Create event</a> </li>
 </ul>';
  echo '  <h2>'.$_SESSION['login_username'].'</h2>';
@@ -63,6 +63,24 @@ function display_login_form(){
 			<input class="form_button" type="submit" value="LOGIN">
     </form>
 	<input type="submit" class="form_button" id="registerbt" value="REGISTER">';
+	display_register_form();
+}
+
+function display_register_form(){
+	
+	echo
+    '<div id="register" title="Register form" style="display:none;"><form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
+
+        <br>Username<br><input type="text" name="log_username">
+        <br>Password<br><input type="password" name="log_password">
+		<br>Confirm password<br><input type="password" name="log_password_conf">
+		<br>Email address<br><input type="email" name="log_email">
+		<input type="hidden" name="choice" value="REGISTER">
+        <br><input class="form_button" type="submit" value="REGISTER">
+    </form></div>';
+	
+	echo '<script type="text/javascript" src="register_form.js"></script>';
+
 }
 
 function login_header()
@@ -148,6 +166,8 @@ function meta_includes()
 echo '<link rel="shortcut icon" href="css/icon.ico">';
 echo '<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>';
 echo '<script type="text/javascript" src="onload.js"></script>';
+echo '<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/start/jquery-ui.css">';
+echo '<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>';
 
 
 }

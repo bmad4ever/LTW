@@ -17,6 +17,7 @@ function popular_events() {
 	ON image_event_id = events.id_event 
 	INNER JOIN registers
 	ON registers.event_id=events.id_event
+	WHERE events.publico=1
    GROUP BY id_event
 	HAVING count>0
    ORDER BY count DESC

@@ -3,7 +3,7 @@ include('header.php');
 include('list_events_popular.php');
 include('print_events.php');
 
-function display_register_form(){
+/*function display_register_form(){
 	
 	echo
     '<div id="register" title="Register form" style="display:none;"><form id="logNreg" action="log_in.php" method="post" enctype="multipart/form-data">
@@ -16,7 +16,7 @@ function display_register_form(){
         <br><input class="form_button" type="submit" value="REGISTER">
     </form></div>';
 
-}
+}*/
 
 function main_display()
 {
@@ -44,9 +44,7 @@ function main_display()
 <title> PROJECT LTW 2015/2016 </title>
 <meta charset = "utf-8">
 <link rel="stylesheet" href="./css/myStyle.css">
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/start/jquery-ui.css">
 <?php meta_includes(); ?>
-<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="main.js"></script>
 </header>
 
@@ -58,7 +56,7 @@ function main_display()
 	</header>
 	
     <br>
-		<?php main_display(); print_events(popular_events(),true,"Popular Events");?>
+		<?php /*main_display()*/; print_events(popular_events(),true,"Popular Events");?>
     <br>
     <br>
     <a href="list_events.php">Check all public events</a>
@@ -78,15 +76,5 @@ function main_display()
     </footer>
 	
 </body>
-
-    
-	<script> 
-	
-	$("#registerbt").click(function() {
-		  
-		$( "#register" ).dialog();
-		$( "#register" ).show();
-	});
-	</script>
 
 </html>

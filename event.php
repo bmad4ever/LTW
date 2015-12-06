@@ -22,6 +22,26 @@ include("social_media.php");
   $stmt->execute(array($id));
   $event_info = $stmt->fetchAll();
   
+  if($event_info[0]['publico']==0) {
+		if($valid_user) {
+			$stmt = $dbh->prepare("SELECT * from invitations
+			WHERE user_id=? AND event_id=?");
+			$stmt->execute(array($_SESSION['login_user'],$id));
+			$invitations = $stmt->fetchAll();
+			
+			if(count($invitations)<=0 && $_SESSION['login_user']!=$event_info[0]['owner'])  {
+			header("Location: main.php");
+			}
+		}
+		else {
+			header("Location: main.php");
+		}
+		
+		
+		
+  }
+  
+  
   //get event comments
   $stmt = $dbh->prepare("SELECT * from comments
 						INNER JOIN users ON users.id=comments.user_id
@@ -51,6 +71,7 @@ include("social_media.php");
 		return $stmt->fetch();
 	}*/
 	
+   
    
 ?>
 <!DOCTYPE HTML>
