@@ -63,7 +63,7 @@ if(!checkLogged())
 		<?php } ?>
 		
 		<input type="hidden" name="id" value="<?=$event_info[0]['id_event']?>" />
-		<br> <input type="submit" value="Upload">
+		<br> <input type="submit" value="Invite">
       </form>
 	  
     </div>

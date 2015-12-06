@@ -137,10 +137,12 @@ include("social_media.php");
 			<?php facebook_share($event_info[0]['id_event']); twitter_share();?>
 		</section>
 		<section>
-		
-		<br>
-		
-					<?php
+			<p>Creator: <?=$event_info[0]['username']?></p>
+			<p>Date: <?=$event_info[0]['event_date']?></p>
+			<p>Type: <?=$event_info[0]['name']?></p>
+			<p>Description:<br> <?=$event_info[0]['description']?></p>
+			
+			<?php
 			if($valid_user) {
 				$stmt = $dbh->prepare("SELECT COUNT(*) as count from registers
 						WHERE event_id=? AND user_id=?");
@@ -176,13 +178,6 @@ include("social_media.php");
 						';
 			}
 		?>
-		
-		<br>
-		
-			<p>Creator: <?=$event_info[0]['username']?></p>
-			<p>Date: <?=$event_info[0]['event_date']?></p>
-			<p>Tipo: <?=$event_info[0]['name']?></p>
-			<p>Description:<br> <?=$event_info[0]['description']?></p>
 			
 			</section>
 		
