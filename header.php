@@ -35,6 +35,7 @@ function display_logged_form(){
 echo '<ul id="loggedin_options"> 
 <li> <a href="main.php">Home</a> </li>
 <li> <a href="my_events.php">My Events</a> </li>
+<li> <a href="inbox.php">My Events</a> </li>
 <li> <a href="create_event.php">Create event</a> </li>
 </ul>';
  echo '  <h2>'.$_SESSION['login_username'].'</h2>';

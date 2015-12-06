@@ -7,7 +7,7 @@ include('list_registered_events.php');
 
 <html>
   <head>
-    <title>Edit event</title>
+    <title>My Events</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/myStyle.css"> 
 	<?php meta_includes(); ?>

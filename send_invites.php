@@ -23,7 +23,7 @@ if(isset($_POST['invite'])){
 		$dbh = new PDO('sqlite:database.db');
 		$dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$stmt = $dbh->prepare("INSERT INTO invitations VALUES (?,?) ON DUPLICATE KEY");
+		$stmt = $dbh->prepare("INSERT OR IGNORE INTO invitations (user_id,event_id) VALUES (?,?)");
 		$stmt->execute(array($user_id,$event_id) );
 		
 		
