@@ -30,7 +30,7 @@ function validateInput($var, $input)
 function cleanUserTextTags($text)
 {
 	global $allowedtags;
-	 return strip_tags($text,$allowedtags);
+	 return strip_tags(trim($text,$allowedtags));
 }
 
 ?>

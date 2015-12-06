@@ -76,13 +76,14 @@ $current_datetime = date("Y-m-d H:i:s");
     }
 
    // if(validateInput($title_match,$_POST['title'])) 
-	if(validateInput($title_match, $_POST['title'])===false) { header("Location: create_event.php?errorMsg=".urlencode($invalid_title_error)); return '';}
+	
 	//if(validateInput($text_match,$_POST['description'])==false) { header("Location: create_event.php?errorMsg=".urlencode($invalid_description_error)); return '';}
 
 	//input seems valid
   sleep(1);//avoid upload spamming
   //create new data - - - - - - - - - - - - - - - - - - - - - - - - -
   $clean_title = cleanUserTextTags($_POST['title']);
+  if(validateInput($title_match, $_POST['title'])===false) { header("Location: create_event.php?errorMsg=".urlencode($invalid_title_error)); return '';}
   $clean_description = cleanUserTextTags($_POST['description']);
  
   $public=0;
