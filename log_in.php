@@ -38,7 +38,7 @@ function number_of_usersnamed()
 	global $result;
 	global $postusername;
 	$db = new PDO('sqlite:database.db');
-	$stmt = $db->prepare('SELECT id FROM users WHERE username = ?');
+	$stmt = $db->prepare('SELECT id FROM users WHERE UPPER(username) = UPPER(?)');
 	$stmt->execute(array($postusername)); 
     $result=$stmt->fetchAll();
 	return count($result);
@@ -49,9 +49,12 @@ function number_of_usersnamed_with_pass()
 	global $postpass;
 	global $result;
 	$db = new PDO('sqlite:database.db');
-	$stmt = $db->prepare('SELECT id FROM users WHERE username = ? and password = ?');
+	$stmt = $db->prepare('SELECT * FROM users WHERE UPPER(username) = UPPER(?) and password = ?');
 	$stmt->execute(array($postusername, md5($postpass))); 
     $result=$stmt->fetchAll();
+	if(count($result)>0) {
+		$postusername=$result[0]['username'];
+	}
 	return count($result);
 }
 
