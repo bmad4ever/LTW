@@ -1,6 +1,14 @@
 <?php
 function print_events($events,$show_user,$title)
-{
+{	
+	if(count($events)==0) {
+		echo '<div class="print_events">
+		<table><th colspan="2">'.$title.'</th>
+		<tr><td colspan="2">No events!</td></tr></table>
+	</div>';
+	}
+	else {
+	
 	echo '<div class="print_events">
 		<table><th colspan="2">'.$title.'</th>';
 		foreach($events as $row){
@@ -16,5 +24,6 @@ function print_events($events,$show_user,$title)
 		}
 		echo'</table>
 	</div>';
+	}
 }
 ?>
