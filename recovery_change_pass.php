@@ -54,6 +54,7 @@ if($id==0) {
 			Password<br><input type="password" name="log_password">
 			<br>Confirm password<br><input type="password" name="log_password_conf">
 			<input type="hidden" name="id" value="<?=$id?>" />
+			<input type="hidden" name="code" value="<?=$code?>" />
 			<br><input class="form_button" type="submit" value="Set password">
 		</form>
 	
