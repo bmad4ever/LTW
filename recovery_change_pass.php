@@ -5,12 +5,11 @@ include('getInputSafe.php');
 sleep(1);//avoid spam
 
 $code = $_GET['code'];
-echo $code;
 
 function verifyCode() {
 	global $code;
 	$db = new PDO('sqlite:database.db');
-	$stmt = $db->prepare('SELECT * FROM users WHERE code=?');
+	$stmt = $db->prepare('SELECT * FROM recovery WHERE code=?');
 	$stmt->execute(array($code)); 
     $result=$stmt->fetchAll();
 	
