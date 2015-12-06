@@ -1,6 +1,7 @@
 ﻿<?php
 include('header.php');
 include('getInputSafe.php');
+include('verify_code_duplicates.php');
 $result;//users with given username (and password, depending on the method called)
 
 sleep(1);//avoid spam
@@ -95,9 +96,13 @@ function number_of_users_with_email()
 			$length = 10;
 			$code = "";
 			$valid = "0123456789abcdefghijklmnopqrstuvwxyz";
-			for ($i = 0; $i < $length; $i++) {
-				$code.=$valid[mt_rand(0, strlen($valid))];
-			}
+			
+			do {
+				for ($i = 0; $i < $length; $i++) {
+					$code.=$valid[mt_rand(0, strlen($valid))];
+				}
+			} while(activation_code($code)>0);
+			
 		
 			$dbh = new PDO('sqlite:database.db');
 			$dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);

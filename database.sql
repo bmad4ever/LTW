@@ -61,5 +61,10 @@ FOREIGN KEY (user_id) REFERENCES events(id_events) ON DELETE CASCADE
 PRIMARY KEY (user_id, event_id)
 )
 
+CREATE TABLE recovery (
+user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+code VARCHAR
+)
+
 INSERT INTO eventTypes(name)
 VALUES ('Music show'),('Party'),('Wedding'),('Baptism'),('Lunch/Dinner'),('Lecture'),('Workshop'),('Meeting');

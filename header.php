@@ -76,6 +76,7 @@ function display_register_form(){
 		<br>Confirm password<br><input type="password" name="log_password_conf">
 		<br>Email address<br><input type="email" name="log_email">
 		<input type="hidden" name="choice" value="REGISTER">
+		<a href="recovery.php">Lost your password?</a>
         <br><input class="form_button" type="submit" value="REGISTER">
     </form></div>';
 	
