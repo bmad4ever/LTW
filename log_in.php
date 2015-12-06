@@ -112,7 +112,7 @@ function number_of_users_with_email()
 			$msg = "Hello, $postusername. Welcome to EventBook!\n
 			To complete your registration, you can simple click <a href='$link'>this link</a>. to activate your account.\n
 			Hope you enjoy your stay!";
-			$from = "up201502862@fe.up.pt";
+			$from = "eventbook-noreply@fe.up.pt";
 			$headers = "From: $from \r\n";
 			$headers .= "Reply-To: $from \r\n";
 			$headers .= "Return-Path: $from\r\n";

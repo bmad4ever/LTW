@@ -13,7 +13,7 @@ name VARCHAR
 );
 
 CREATE table events(
-id INTEGER PRIMARY KEY AUTOINCREMENT,
+event_id INTEGER PRIMARY KEY AUTOINCREMENT,
 owner INTEGER,/*user id*/
 eventtype INTEGER,
 creation_date DATETIME, /*date event was created*/
@@ -62,4 +62,4 @@ PRIMARY KEY (user_id, event_id)
 )
 
 INSERT INTO eventTypes(name)
-VALUES ('Concerto'),('Festa'),('Casamento'),('Batismo'),('Almoço/Jantar'),('Palestra'),('Workshop'),('Reunião');
+VALUES ('Music show'),('Party'),('Wedding'),('Baptism'),('Lunch/Dinner'),('Lecture'),('Workshop'),('Meeting');
